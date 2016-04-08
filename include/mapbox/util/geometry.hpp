@@ -18,18 +18,21 @@ struct point
     point(T x_, T y_)
         : x(x_), y(y_)
     {}
-
-    friend inline bool operator== (point<T> const& a, point<T> const& b)
-    {
-        return a.x == b.x && a.y == b.y;
-    }
-    friend inline bool operator!= (point<T> const& a, point <T> const& b)
-    {
-        return a.x != b.x  || a.y != b.y;
-    }
     value_type x;
     value_type y;
 };
+
+template <typename T>
+bool operator==(point<T> const& lhs, point<T> const& rhs)
+{
+    return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+template <typename T>
+bool operator!=(point<T> const& lhs, point<T> const& rhs)
+{
+    return !(lhs == rhs);
+}
 
 template <typename T>
 struct line_string : std::vector<point<T> >
