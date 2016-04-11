@@ -31,7 +31,7 @@ bool operator==(point<T> const& lhs, point<T> const& rhs)
 template <typename T>
 bool operator!=(point<T> const& lhs, point<T> const& rhs)
 {
-    return !(lhs == rhs);
+    return lhs.x != rhs.x || lhs.y != rhs.y;
 }
 
 template <typename T>
