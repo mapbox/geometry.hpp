@@ -1,5 +1,5 @@
-#ifndef MAPBOX_UTIL_GEOMETRY_HPP
-#define MAPBOX_UTIL_GEOMETRY_HPP
+#ifndef MAPBOX_GEOMETRY_GEOMETRY_HPP
+#define MAPBOX_GEOMETRY_GEOMETRY_HPP
 
 //
 #include <vector>
@@ -8,7 +8,7 @@
 //
 #include <mapbox/util/variant.hpp>
 
-namespace mapbox { namespace util {
+namespace mapbox { namespace geometry {
 
 template <typename T>
 struct point
@@ -127,4 +127,4 @@ struct geometry_collection : std::vector<geometry<T>> {};
 
 }}
 
-#endif  // MAPBOX_UTIL_GEOMETRY_HPP
+#endif  // MAPBOX_GEOMETRY_GEOMETRY_HPP
