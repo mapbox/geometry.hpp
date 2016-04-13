@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_GEOMETRY_HPP
-#define MAPBOX_GEOMETRY_GEOMETRY_HPP
+#pragma once
 
 #include <mapbox/geometry/point.hpp>
 #include <mapbox/geometry/line_string.hpp>
@@ -51,5 +50,3 @@ template <typename T, template <typename...> class Cont>
 struct geometry_collection : Cont<geometry<T>> {};
 
 }}
-
-#endif  // MAPBOX_GEOMETRY_GEOMETRY_HPP

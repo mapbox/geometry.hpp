@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_MULTI_LINE_STRING_HPP
-#define MAPBOX_GEOMETRY_MULTI_LINE_STRING_HPP
+#pragma once
 
 // mapbox
 #include <mapbox/geometry/line_string.hpp>
@@ -12,5 +11,3 @@ template <typename T, template <typename...> class Cont = std::vector>
 struct multi_line_string : Cont<line_string<T>> {};
 
 }}
-
-#endif // MAPBOX_GEOMETRY_MULTI_LINE_STRING_HPP

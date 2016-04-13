@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_POLYGON_HPP
-#define MAPBOX_GEOMETRY_POLYGON_HPP
+#pragma once
 
 // mapbox
 #include <mapbox/geometry/line_string.hpp>
@@ -50,5 +49,3 @@ struct polygon
 };
 
 }}
-
-#endif // MAPBOX_GEOMETRY_POLYGON_HPP

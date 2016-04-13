@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_POINT_HPP
-#define MAPBOX_GEOMETRY_POINT_HPP
+#pragma once
 
 namespace mapbox { namespace geometry {
 
@@ -28,5 +27,3 @@ bool operator!=(point<T> const& lhs, point<T> const& rhs)
 }
 
 }}
-
-#endif // MAPBOX_GEOMETRY_POINT_HPP

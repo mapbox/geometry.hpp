@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_MULTI_POINT_HPP
-#define MAPBOX_GEOMETRY_MULTI_POINT_HPP
+#pragma once
 
 // mapbox
 #include <mapbox/geometry/point.hpp>
@@ -21,5 +20,3 @@ struct multi_point : Cont<point<T>>
 };
 
 }}
-
-#endif // MAPBOX_GEOMETRY_MULTI_POINT_HPP

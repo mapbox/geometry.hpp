@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_LINE_STRING_HPP
-#define MAPBOX_GEOMETRY_LINE_STRING_HPP
+#pragma once
 
 // mapbox
 #include <mapbox/geometry/point.hpp>
@@ -21,5 +20,3 @@ struct line_string : Cont<point<T> >
 };
 
 }}
-
-#endif // MAPBOX_GEOMETRY_LINE_STRING_HPP

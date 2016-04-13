@@ -1,5 +1,4 @@
-#ifndef MAPBOX_GEOMETRY_MULTI_POLYGON_HPP
-#define MAPBOX_GEOMETRY_MULTI_POLYGON_HPP
+#pragma once
 
 // mapbox
 #include <mapbox/geometry/polygon.hpp>
@@ -12,5 +11,3 @@ template <typename T, template <typename...> class Cont = std::vector>
 struct multi_polygon : Cont<polygon<T>> {};
 
 }}
-
-#endif // MAPBOX_GEOMETRY_MULTI_POLYGON_HPP
