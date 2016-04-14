@@ -1,15 +1,6 @@
 #ifndef MAPBOX_GEOMETRY_GEOMETRY_HPP
 #define MAPBOX_GEOMETRY_GEOMETRY_HPP
 
-//
-#include <vector>
-#include <type_traits>
-#include <cstddef>
-//
-#include <mapbox/util/variant.hpp>
-
-namespace mapbox { namespace geometry {
-
 #include <mapbox/geometry/point.hpp>
 #include <mapbox/geometry/line_string.hpp>
 #include <mapbox/geometry/polygon.hpp>
