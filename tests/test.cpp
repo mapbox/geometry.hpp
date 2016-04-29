@@ -74,9 +74,6 @@ void testGeometry() {
 void testGeometryCollection() {
     geometry_collection<double> gc1;
     assert(gc1.size() == 0);
-
-    geometry_collection<double> gc2(10);
-    assert(gc2.size() == 10);
 }
 
 int main() {

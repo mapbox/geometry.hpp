@@ -31,6 +31,12 @@ struct geometry : geometry_base<T>
 {
     using value_type = T;
     using geometry_base<T>::geometry_base;
+
+    /*
+     * The default constructor would create a point geometry with default-constructed coordinates;
+     * i.e. (0, 0). Since this is not particularly useful, and could hide bugs, it is disabled.
+     */
+    geometry() = delete;
 };
 
 template <typename T, template <typename...> class Cont>
