@@ -1,4 +1,4 @@
-#include <mapbox/geometry/geometry.hpp>
+#include <mapbox/geometry.hpp>
 
 #include <cassert>
 
@@ -76,6 +76,17 @@ void testGeometryCollection() {
     assert(gc1.size() == 0);
 }
 
+void testFeature() {
+    feature<double> pf { point<double>() };
+    assert(pf.geometry.is<point<double>>());
+    assert(pf.properties.size() == 0);
+}
+
+void testFeatureCollection() {
+    feature_collection<double> fc1;
+    assert(fc1.size() == 0);
+}
+
 int main() {
     testPoint();
     testMultiPoint();
@@ -85,5 +96,7 @@ int main() {
     testMultiPolygon();
     testGeometry();
     testGeometryCollection();
+    testFeature();
+    testFeatureCollection();
     return 0;
 }
