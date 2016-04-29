@@ -11,24 +11,17 @@ namespace mapbox { namespace geometry {
 template <typename T>
 struct linear_ring : line_string<T>
 {
-    linear_ring() = default;
-    explicit linear_ring(std::size_t size)
-        : line_string<T>(size) {}
-    linear_ring(line_string<T> && other)
-        : line_string<T>(std::move(other)) {}
-    linear_ring(line_string<T> const& other)
-        : line_string<T>(other) {}
+    using line_string<T>::line_string;
 };
 
-template <typename T>
-using rings_container = std::vector<linear_ring<T>>;
-
-template <typename T, template <typename> class InteriorRings = rings_container>
+template <typename T, template <typename...> class Cont = std::vector>
 struct polygon
 {
-    linear_ring<T> exterior_ring;
-    using rings_container = InteriorRings<T>;
-    rings_container interior_rings;
+    using linear_ring_type = linear_ring<T>;
+    using linear_rings_container = Cont<linear_ring_type>;
+
+    linear_ring_type exterior_ring;
+    linear_rings_container interior_rings;
 
     inline void set_exterior_ring(linear_ring<T> && ring)
     {
