@@ -6,7 +6,9 @@ template <typename T>
 struct point
 {
     using value_type = T;
-    point() {}
+    point()
+        : x(), y()
+    {}
     point(T x_, T y_)
         : x(x_), y(y_)
     {}

@@ -1,15 +1,13 @@
 #include <mapbox/geometry/geometry.hpp>
-#include "tap.hpp"
 
+#include <cassert>
+
+using namespace mapbox::geometry;
 
 int main() {
-    Tap tap;
-
-    {
-        Tap::Test t("empty");
-        t.ok(true, "true");
-        t.end();
-    }
+    point<double> p;
+    assert(p.x == 0);
+    assert(p.y == 0);
 
     return 0;
 }
