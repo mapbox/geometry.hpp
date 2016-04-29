@@ -27,7 +27,7 @@ using geometry_base = mapbox::util::variant<geometry_empty,
                                             multi_point<T>,
                                             multi_line_string<T>,
                                             multi_polygon<T>,
-                                            mapbox::util::recursive_wrapper<geometry_collection<T> > >;
+                                            geometry_collection<T>>;
 
 template <typename T>
 struct geometry : geometry_base<T>

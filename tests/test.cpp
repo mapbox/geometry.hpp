@@ -51,6 +51,27 @@ void testMultiPolygon() {
 void testGeometry() {
     geometry<double> g;
     assert(g.is<geometry_empty>());
+
+    geometry<double> pg { point<double>() };
+    assert(pg.is<point<double>>());
+
+    geometry<double> lsg { line_string<double>() };
+    assert(lsg.is<line_string<double>>());
+
+    geometry<double> pgg { polygon<double>() };
+    assert(pgg.is<polygon<double>>());
+
+    geometry<double> mpg { multi_point<double>() };
+    assert(mpg.is<multi_point<double>>());
+
+    geometry<double> mlsg { multi_line_string<double>() };
+    assert(mlsg.is<multi_line_string<double>>());
+
+    geometry<double> mpgg { multi_polygon<double>() };
+    assert(mpgg.is<multi_polygon<double>>());
+
+    geometry<double> gcg { geometry_collection<double>() };
+    assert(gcg.is<geometry_collection<double>>());
 }
 
 void testGeometryCollection() {
