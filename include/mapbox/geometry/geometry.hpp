@@ -17,11 +17,8 @@ namespace mapbox { namespace geometry {
 template <typename T, template <typename...> class Cont = std::vector>
 struct geometry_collection;
 
-struct geometry_empty {};
-
 template <typename T>
-using geometry_base = mapbox::util::variant<geometry_empty,
-                                            point<T>,
+using geometry_base = mapbox::util::variant<point<T>,
                                             line_string<T>,
                                             polygon<T>,
                                             multi_point<T>,

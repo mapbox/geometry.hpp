@@ -49,9 +49,6 @@ void testMultiPolygon() {
 }
 
 void testGeometry() {
-    geometry<double> g;
-    assert(g.is<geometry_empty>());
-
     geometry<double> pg { point<double>() };
     assert(pg.is<point<double>>());
 
