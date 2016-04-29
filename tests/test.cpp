@@ -4,13 +4,13 @@
 
 using namespace mapbox::geometry;
 
-void testPoint() {
+static void testPoint() {
     point<double> p;
-    assert(p.x == 0);
-    assert(p.y == 0);
+    assert(int(p.x) == 0);
+    assert(int(p.y) == 0);
 }
 
-void testMultiPoint() {
+static void testMultiPoint() {
     multi_point<double> mp1;
     assert(mp1.size() == 0);
 
@@ -18,7 +18,7 @@ void testMultiPoint() {
     assert(mp2.size() == 10);
 }
 
-void testLineString() {
+static void testLineString() {
     line_string<double> ls1;
     assert(ls1.size() == 0);
 
@@ -26,7 +26,7 @@ void testLineString() {
     assert(ls2.size() == 10);
 }
 
-void testMultiLineString() {
+static void testMultiLineString() {
     multi_line_string<double> mls1;
     assert(mls1.size() == 0);
 
@@ -34,13 +34,13 @@ void testMultiLineString() {
     assert(mls2.size() == 10);
 }
 
-void testPolygon() {
+static void testPolygon() {
     polygon<double> pg;
     assert(pg.exterior_ring.size() == 0);
     assert(pg.interior_rings.size() == 0);
 }
 
-void testMultiPolygon() {
+static void testMultiPolygon() {
     multi_polygon<double> mpg1;
     assert(mpg1.size() == 0);
 
@@ -48,7 +48,7 @@ void testMultiPolygon() {
     assert(mpg2.size() == 10);
 }
 
-void testGeometry() {
+static void testGeometry() {
     geometry<double> pg { point<double>() };
     assert(pg.is<point<double>>());
 
@@ -71,7 +71,7 @@ void testGeometry() {
     assert(gcg.is<geometry_collection<double>>());
 }
 
-void testGeometryCollection() {
+static void testGeometryCollection() {
     geometry_collection<double> gc1;
     assert(gc1.size() == 0);
 }
