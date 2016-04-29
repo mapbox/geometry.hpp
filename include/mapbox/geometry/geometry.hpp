@@ -32,21 +32,20 @@ using geometry_base = mapbox::util::variant<geometry_empty,
                                             multi_line_string<T>,
                                             multi_polygon<T>,
                                             mapbox::util::recursive_wrapper<geometry_collection<T> > >;
+
 template <typename T>
 struct geometry : geometry_base<T>
 {
     using value_type = T;
-
-    geometry()
-        : geometry_base<T>() {} // empty
-
-    template <typename G>
-    geometry(G && geom)
-        : geometry_base<T>(std::forward<G>(geom)) {}
-
+    using geometry_base<T>::geometry_base;
 };
 
 template <typename T, template <typename...> class Cont>
-struct geometry_collection : Cont<geometry<T>> {};
+struct geometry_collection : Cont<geometry<T>>
+{
+    using geometry_type = geometry<T>;
+    using container_type = Cont<geometry_type>;
+    using container_type::container_type;
+};
 
 }}

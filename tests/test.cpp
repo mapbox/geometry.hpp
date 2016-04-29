@@ -30,8 +30,8 @@ void testMultiLineString() {
     multi_line_string<double> mls1;
     assert(mls1.size() == 0);
 
-//    multi_line_string<double> mls2(10);
-//    assert(mls2.size() == 10);
+    multi_line_string<double> mls2(10);
+    assert(mls2.size() == 10);
 }
 
 void testPolygon() {
@@ -44,8 +44,8 @@ void testMultiPolygon() {
     multi_polygon<double> mpg1;
     assert(mpg1.size() == 0);
 
-//    multi_polygon<double> mpg2(10);
-//    assert(mpg2.size() == 10);
+    multi_polygon<double> mpg2(10);
+    assert(mpg2.size() == 10);
 }
 
 void testGeometry() {
@@ -57,8 +57,8 @@ void testGeometryCollection() {
     geometry_collection<double> gc1;
     assert(gc1.size() == 0);
 
-//    geometry_collection<double> gc2(10);
-//    assert(gc2.size() == 10);
+    geometry_collection<double> gc2(10);
+    assert(gc2.size() == 10);
 }
 
 int main() {
