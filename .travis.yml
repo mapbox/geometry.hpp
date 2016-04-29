@@ -8,6 +8,11 @@ matrix:
         apt:
           sources: [ 'ubuntu-toolchain-r-test' ]
           packages: [ 'g++-4.9' ]
+    - env: CXX=g++-5
+      addons:
+        apt:
+          sources: [ 'ubuntu-toolchain-r-test' ]
+          packages: [ 'g++-5' ]
     - env: CXX=clang++-3.7
       addons:
         apt:
