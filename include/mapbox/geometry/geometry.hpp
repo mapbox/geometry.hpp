@@ -6,9 +6,8 @@
 #include <mapbox/geometry/multi_point.hpp>
 #include <mapbox/geometry/multi_line_string.hpp>
 #include <mapbox/geometry/multi_polygon.hpp>
-//
-// #include <mapbox/util/variant.hpp>
-#include <mapbox/variant.hpp> // variant 1.0 compatibility, change to the above after 1.1.0 upgrade
+
+#include <mapbox/variant.hpp>
 
 // stl
 #include <vector>
