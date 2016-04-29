@@ -12,9 +12,6 @@
 
 // stl
 #include <vector>
-#include <deque>
-#include <type_traits>
-#include <cstddef>
 
 namespace mapbox { namespace geometry {
 
