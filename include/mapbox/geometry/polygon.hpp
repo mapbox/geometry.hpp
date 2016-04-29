@@ -22,23 +22,6 @@ struct polygon
 
     linear_ring_type exterior_ring;
     linear_rings_container interior_rings;
-
-    inline void set_exterior_ring(linear_ring<T> && ring)
-    {
-        exterior_ring = std::move(ring);
-    }
-
-    inline void add_hole(linear_ring<T> && ring)
-    {
-        interior_rings.emplace_back(std::move(ring));
-    }
-
-    inline bool empty() const { return exterior_ring.empty(); }
-
-    inline std::size_t num_rings() const
-    {
-        return 1 + interior_rings.size();
-    }
 };
 
 }}
