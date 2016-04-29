@@ -7,7 +7,7 @@ $(MASON_DIR):
 mason_packages: $(MASON_DIR)
 	$(MASON) install variant 1.1.0
 
-test: tests/* mason_packages
+test: tests/* include/mapbox/geometry/* mason_packages
 	$(CXX) tests/*.cpp -std=c++14 -o test -I include `$(MASON) cflags variant 1.1.0`
 	./test
 
