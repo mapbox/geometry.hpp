@@ -14,38 +14,46 @@
 
 namespace mapbox { namespace geometry {
 
-template <typename T, template <typename...> class Cont = std::vector>
-struct geometry_collection;
+template <typename Point, template <typename...> class Cont = std::vector>
+struct geometry_collection_t;
 
-template <typename T>
-using geometry_base = mapbox::util::variant<point<T>,
-                                            line_string<T>,
-                                            polygon<T>,
-                                            multi_point<T>,
-                                            multi_line_string<T>,
-                                            multi_polygon<T>,
-                                            geometry_collection<T>>;
+template <typename Point>
+using geometry_base_t = mapbox::util::variant<Point,
+                                              line_string_t<Point>,
+                                              polygon_t<Point>,
+                                              multi_point_t<Point>,
+                                              multi_line_string_t<Point>,
+                                              multi_polygon_t<Point>,
+                                              geometry_collection_t<Point>>;
 
-template <typename T>
-struct geometry : geometry_base<T>
+template <typename Point>
+struct geometry_t : geometry_base_t<Point>
 {
-    using coordinate_type = T;
-    using geometry_base<T>::geometry_base;
+    using point_type = Point;
+    using coordinate_type = typename point_type::coordinate_type;
+    using geometry_base_t<Point>::geometry_base_t;
 
     /*
      * The default constructor would create a point geometry with default-constructed coordinates;
      * i.e. (0, 0). Since this is not particularly useful, and could hide bugs, it is disabled.
      */
-    geometry() = delete;
+    geometry_t() = delete;
 };
 
-template <typename T, template <typename...> class Cont>
-struct geometry_collection : Cont<geometry<T>>
+template <class T>
+using geometry = geometry_t<point<T>>;
+
+template <typename Point, template <typename...> class Container>
+struct geometry_collection_t : Container<geometry_t<Point>>
 {
-    using coordinate_type = T;
-    using geometry_type = geometry<T>;
-    using container_type = Cont<geometry_type>;
+    using point_type = Point;
+    using coordinate_type = typename point_type::coordinate_type;
+    using geometry_type = geometry_t<Point>;
+    using container_type = Container<geometry_type>;
     using container_type::container_type;
 };
+
+template <class T, template <typename...> class Container = std::vector>
+using geometry_collection = geometry_collection_t<point<T>, Container>;
 
 }}
