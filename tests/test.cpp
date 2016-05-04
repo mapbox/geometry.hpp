@@ -5,9 +5,30 @@
 using namespace mapbox::geometry;
 
 static void testPoint() {
-    point<double> p;
-    assert(int(p.x) == 0);
-    assert(int(p.y) == 0);
+    point<double> p1;
+    assert(int(p1.x) == 0);
+    assert(int(p1.y) == 0);
+
+    point<uint32_t> p2(2, 3);
+    point<uint32_t> p3(4, 6);
+
+    assert((p2 + p3) == point<uint32_t>(6, 9));
+    assert((p2 + 1u) == point<uint32_t>(3, 4));
+    assert((p3 - p2) == point<uint32_t>(2, 3));
+    assert((p3 - 1u) == point<uint32_t>(3, 5));
+    assert((p3 * p2) == point<uint32_t>(8, 18));
+    assert((p2 * 2u) == point<uint32_t>(4, 6));
+    assert((p3 / p2) == point<uint32_t>(2, 2));
+    assert((p3 / 2u) == point<uint32_t>(2, 3));
+
+    { point<uint32_t> p(2, 3); assert((p += p3) == point<uint32_t>(6, 9)); }
+    { point<uint32_t> p(2, 3); assert((p += 1u) == point<uint32_t>(3, 4)); }
+    { point<uint32_t> p(4, 6); assert((p -= p2) == point<uint32_t>(2, 3)); }
+    { point<uint32_t> p(4, 6); assert((p -= 1u) == point<uint32_t>(3, 5)); }
+    { point<uint32_t> p(4, 6); assert((p *= p2) == point<uint32_t>(8, 18)); }
+    { point<uint32_t> p(2, 3); assert((p *= 2u) == point<uint32_t>(4, 6)); }
+    { point<uint32_t> p(4, 6); assert((p /= p2) == point<uint32_t>(2, 2)); }
+    { point<uint32_t> p(4, 6); assert((p /= 2u) == point<uint32_t>(2, 3)); }
 }
 
 static void testMultiPoint() {

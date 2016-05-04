@@ -8,3 +8,4 @@
 #include <mapbox/geometry/multi_polygon.hpp>
 #include <mapbox/geometry/geometry.hpp>
 #include <mapbox/geometry/feature.hpp>
+#include <mapbox/geometry/point_arithmetic.hpp>
