@@ -57,8 +57,7 @@ static void testMultiLineString() {
 
 static void testPolygon() {
     polygon<double> pg;
-    assert(pg.exterior_ring.size() == 0);
-    assert(pg.interior_rings.size() == 0);
+    assert(pg.size() == 0);
 }
 
 static void testMultiPolygon() {

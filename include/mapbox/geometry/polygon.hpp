@@ -16,14 +16,11 @@ struct linear_ring : line_string<T>
 };
 
 template <typename T, template <typename...> class Cont = std::vector>
-struct polygon
+struct polygon : Cont<linear_ring<T>>
 {
     using coordinate_type = T;
     using linear_ring_type = linear_ring<T>;
-    using linear_rings_container = Cont<linear_ring_type>;
-
-    linear_ring_type exterior_ring;
-    linear_rings_container interior_rings;
+    using container_type = Cont<linear_ring_type>;
 };
 
 }}
