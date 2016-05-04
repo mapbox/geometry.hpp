@@ -9,6 +9,12 @@ static void testPoint() {
     assert(int(p1.x) == 0);
     assert(int(p1.y) == 0);
 
+    point<int> intPoint;
+    point<double> doublePoint;
+
+    intPoint = point<int>(doublePoint);
+    doublePoint = point<double>(intPoint);
+
     point<uint32_t> p2(2, 3);
     point<uint32_t> p3(4, 6);
 
