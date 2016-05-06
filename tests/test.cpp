@@ -56,8 +56,13 @@ static void testMultiLineString() {
 }
 
 static void testPolygon() {
-    polygon<double> pg;
-    assert(pg.size() == 0);
+    polygon<double> pg1;
+    assert(pg1.size() == 0);
+
+    polygon<double> pg2({{{0, 1}}});
+    assert(pg2.size() == 1);
+    assert(pg2[0].size() == 1);
+    assert(pg2[0][0] == point<double>(0, 1));
 }
 
 static void testMultiPolygon() {

@@ -23,6 +23,7 @@ struct polygon : Cont<linear_ring<T>>
     using coordinate_type = T;
     using linear_ring_type = linear_ring<T>;
     using container_type = Cont<linear_ring_type>;
+    using container_type::container_type;
 };
 
 }}
