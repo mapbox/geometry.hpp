@@ -136,6 +136,19 @@ static void testFeatureCollection() {
     assert(fc1.size() == 0);
 }
 
+static void testEnvelope() {
+    assert(envelope(point<double>(0, 0)) == box<double>({0, 0}, {0, 0}));
+    assert(envelope(line_string<double>({{0, 1}, {2, 3}})) == box<double>({0, 1}, {2, 3}));
+    assert(envelope(polygon<double>({{{0, 1}, {2, 3}}})) == box<double>({0, 1}, {2, 3}));
+
+    assert(envelope(multi_point<double>({{0, 0}})) == box<double>({0, 0}, {0, 0}));
+    assert(envelope(multi_line_string<double>({{{0, 1}, {2, 3}}})) == box<double>({0, 1}, {2, 3}));
+    assert(envelope(multi_polygon<double>({{{{0, 1}, {2, 3}}}})) == box<double>({0, 1}, {2, 3}));
+
+    assert(envelope(geometry<int>(point<int>(0, 0))) == box<int>({0, 0}, {0, 0}));
+    assert(envelope(geometry_collection<int>({point<int>(0, 0)})) == box<int>({0, 0}, {0, 0}));
+}
+
 int main() {
     testPoint();
     testMultiPoint();
@@ -147,5 +160,7 @@ int main() {
     testGeometryCollection();
     testFeature();
     testFeatureCollection();
+
+    testEnvelope();
     return 0;
 }

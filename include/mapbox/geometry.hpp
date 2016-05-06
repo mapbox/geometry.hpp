@@ -9,3 +9,5 @@
 #include <mapbox/geometry/geometry.hpp>
 #include <mapbox/geometry/feature.hpp>
 #include <mapbox/geometry/point_arithmetic.hpp>
+#include <mapbox/geometry/for_each_point.hpp>
+#include <mapbox/geometry/envelope.hpp>
