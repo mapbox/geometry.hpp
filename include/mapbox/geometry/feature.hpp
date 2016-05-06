@@ -25,6 +25,7 @@ struct value : value_base
 template <class T>
 struct feature
 {
+    using coordinate_type = T;
     using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
     using property_map = std::unordered_map<std::string, value>;
 
@@ -35,6 +36,7 @@ struct feature
 template <class T, template <typename...> class Cont = std::vector>
 struct feature_collection : Cont<feature<T>>
 {
+    using coordinate_type = T;
     using feature_type = feature<T>;
     using container_type = Cont<feature_type>;
     using container_type::container_type;

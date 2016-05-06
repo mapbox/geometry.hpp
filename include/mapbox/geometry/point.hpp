@@ -5,15 +5,15 @@ namespace mapbox { namespace geometry {
 template <typename T>
 struct point
 {
-    using value_type = T;
+    using coordinate_type = T;
     point()
         : x(), y()
     {}
     point(T x_, T y_)
         : x(x_), y(y_)
     {}
-    value_type x;
-    value_type y;
+    T x;
+    T y;
 };
 
 template <typename T>
