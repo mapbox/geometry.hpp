@@ -29,7 +29,13 @@ using geometry_base_t = mapbox::util::variant<Point,
 template <typename Point>
 struct geometry_t : geometry_base_t<Point>
 {
-    using point_type = Point;
+    using point_type               = Point;
+    using line_string_type         = line_string_t<Point>;
+    using polygon_type             = polygon_t<Point>;
+    using multi_point_type         = multi_point_t<Point>;
+    using multi_line_string_type   = multi_line_string_t<Point>;
+    using multi_polygon_type       = multi_polygon_t<Point>;
+    using geometry_collection_type = geometry_collection_t<Point>;
     using coordinate_type = typename point_type::coordinate_type;
     using geometry_base_t<Point>::geometry_base_t;
 
