@@ -115,11 +115,17 @@ static void testFeature() {
     p["int"] = -10;
     p["null"] = nullptr;
 
+    assert(p["bool"].is<bool>());
     assert(p["bool"] == true);
+    assert(p["string"].is<std::string>());
     assert(p["string"] == "foo");
+    assert(p["double"].is<double>());
     assert(p["double"] == 2.5);
+    assert(p["uint"].is<uint64_t>());
     assert(p["uint"] == 10);
+    assert(p["int"].is<int64_t>());
     assert(p["int"] == -10);
+    assert(p["null"].is<std::nullptr_t>());
     assert(p["null"] == nullptr);
 
     assert(p.size() == 6);
