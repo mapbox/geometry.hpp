@@ -105,6 +105,24 @@ static void testFeature() {
     feature<double> pf { point<double>() };
     assert(pf.geometry.is<point<double>>());
     assert(pf.properties.size() == 0);
+
+    auto &p = pf.properties;
+
+    p["bool"] = true;
+    p["string"] = "foo";
+    p["double"] = 2.5;
+    p["uint"] = 10;
+    p["int"] = -10;
+    p["null"] = nullptr;
+
+    assert(p["bool"] == true);
+    assert(p["string"] == "foo");
+    assert(p["double"] == 2.5);
+    assert(p["uint"] == 10);
+    assert(p["int"] == -10);
+    assert(p["null"] == nullptr);
+
+    assert(p.size() == 6);
 }
 
 static void testFeatureCollection() {
