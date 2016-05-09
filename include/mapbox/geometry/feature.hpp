@@ -13,7 +13,7 @@ namespace mapbox { namespace geometry {
 
 struct value;
 
-using value_base = mapbox::util::variant<bool, int64_t, uint64_t, double, std::string,
+using value_base = mapbox::util::variant<std::nullptr_t, bool, int64_t, uint64_t, double, std::string,
                                          mapbox::util::recursive_wrapper<std::vector<value>>,
                                          mapbox::util::recursive_wrapper<std::unordered_map<std::string, value>>>;
 
