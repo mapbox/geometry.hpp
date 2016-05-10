@@ -13,7 +13,12 @@ namespace mapbox { namespace geometry {
 
 struct value;
 
-using value_base = mapbox::util::variant<std::nullptr_t, bool, int64_t, uint64_t, double, std::string,
+// Multiple numeric types (uint64_t, int64_t, double) are present in order to support
+// the widest possible range of JSON numbers, which do not have a maximum range.
+// Implementations that produce `value`s should use that order for type preference,
+// using uint64_t for positive integers, int64_t for negative integers, and double
+// for non-integers and integers outside the range of 64 bits.
+using value_base = mapbox::util::variant<std::nullptr_t, bool, uint64_t, int64_t, double, std::string,
                                          mapbox::util::recursive_wrapper<std::vector<value>>,
                                          mapbox::util::recursive_wrapper<std::unordered_map<std::string, value>>>;
 
