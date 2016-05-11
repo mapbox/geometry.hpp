@@ -193,6 +193,21 @@ static void testEnvelope() {
     assert(envelope(geometry_collection<int>({point<int>(0, 0)})) == box<int>({0, 0}, {0, 0}));
 }
 
+static void testCustomPointType() {
+    struct point_3d {
+       using coordinate_type = double;
+       double x;
+       double y;
+       double z;
+    };
+
+    using custom_geometry = geometry_t<point_3d>;
+    using custom_polygon = custom_geometry::polygon_type;
+
+    custom_geometry g { custom_polygon({{{0, 1, 2}, {3, 4, 5}}}) };
+    assert(g.get<custom_polygon>()[0][0].x == 0);
+}
+
 int main() {
     testPoint();
     testMultiPoint();
@@ -207,5 +222,6 @@ int main() {
 
     testForEachPoint();
     testEnvelope();
+    testCustomPointType();
     return 0;
 }
