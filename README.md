@@ -81,3 +81,22 @@ int main() {
     mapbox::util::apply_visitor(visitor,geom);
 }
 ```
+
+Geometry types with a custom point type:
+
+```cpp
+#include <mapbox/geometry/geometry.hpp>
+
+// geometry.hpp provides a `geometry_t` template that supports any point type with a
+// `coordinate_type` member.
+struct my_point {
+    using coordinate_type = double;
+    double x;
+    double y;
+    double elevation;
+};
+
+using my_geometry = mapbox::geometry::geometry_t<my_point>;
+using my_line_string = my_geometry::line_string_type;
+using my_polygon = my_geometry::polygon_type;
+// etc.
