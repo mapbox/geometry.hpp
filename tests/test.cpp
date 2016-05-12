@@ -165,6 +165,10 @@ static void testForEachPoint() {
     geometry<double> g(polygon<double>({{{0, 1}, {2, 3}}}));
     for_each_point(g, point_negator);
     assert(g == geometry<double>(polygon<double>({{{0, -1}, {-2, -3}}})));
+
+    // Custom geometry type
+    using my_geometry = mapbox::util::variant<point<double>>;
+    assert(count_points(my_geometry(point<double>())) == 1);
 }
 
 static void testEnvelope() {
