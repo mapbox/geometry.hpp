@@ -136,6 +136,37 @@ static void testFeatureCollection() {
     assert(fc1.size() == 0);
 }
 
+static void testForEachPoint() {
+    struct point_counter {
+        std::size_t count = 0;
+        void operator()(point<double> const&) { count++; };
+    };
+
+    auto count_points = [] (auto const& g) {
+        point_counter counter;
+        for_each_point(g, counter);
+        return counter.count;
+    };
+
+    assert(count_points(point<double>()) == 1);
+    assert(count_points(line_string<double>({{0, 1}, {2, 3}})) == 2);
+    assert(count_points(geometry<double>(polygon<double>({{{0, 1}, {2, 3}}}))) == 2);
+
+    auto point_negator = [] (point<double>& p) { p *= -1.0; };
+
+    point<double> p(1, 2);
+    for_each_point(p, point_negator);
+    assert(p == point<double>(-1, -2));
+
+    line_string<double> ls({{0, 1}, {2, 3}});
+    for_each_point(ls, point_negator);
+    assert(ls == line_string<double>({{0, -1}, {-2, -3}}));
+
+    geometry<double> g(polygon<double>({{{0, 1}, {2, 3}}}));
+    for_each_point(g, point_negator);
+    assert(g == geometry<double>(polygon<double>({{{0, -1}, {-2, -3}}})));
+}
+
 static void testEnvelope() {
     assert(envelope(point<double>(0, 0)) == box<double>({0, 0}, {0, 0}));
     assert(envelope(line_string<double>({{0, 1}, {2, 3}})) == box<double>({0, 1}, {2, 3}));
@@ -161,6 +192,7 @@ int main() {
     testFeature();
     testFeatureCollection();
 
+    testForEachPoint();
     testEnvelope();
     return 0;
 }
