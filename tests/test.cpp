@@ -136,12 +136,13 @@ static void testFeatureCollection() {
     assert(fc1.size() == 0);
 }
 
-static void testForEachPoint() {
-    struct point_counter {
-        std::size_t count = 0;
-        void operator()(point<double> const&) { count++; };
-    };
+struct point_counter {
+    std::size_t count = 0;
+    template <class Point>
+    void operator()(Point const&) { count++; };
+};
 
+static void testForEachPoint() {
     auto count_points = [] (auto const& g) {
         point_counter counter;
         for_each_point(g, counter);
@@ -169,6 +170,14 @@ static void testForEachPoint() {
     // Custom geometry type
     using my_geometry = mapbox::util::variant<point<double>>;
     assert(count_points(my_geometry(point<double>())) == 1);
+
+    // Custom point type
+    struct my_point {
+        int16_t x;
+        int16_t y;
+    };
+    assert(count_points(std::vector<my_point>({my_point{0, 1}})) == 1);
+    assert(count_points(mapbox::util::variant<my_point>(my_point{0, 1})) == 1);
 }
 
 static void testEnvelope() {

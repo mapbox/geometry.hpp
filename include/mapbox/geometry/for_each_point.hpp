@@ -4,48 +4,38 @@
 
 namespace mapbox { namespace geometry {
 
-// const
-
-template <typename T, typename F>
-void for_each_point(point<T> const& point, F&& f)
+template <typename Point, typename F>
+auto for_each_point(Point&& point, F&& f)
+    -> decltype(point.x, point.y, void())
 {
-    f(point);
+    f(std::forward<Point>(point));
 }
+
+template <typename Container, typename F>
+auto for_each_point(Container&& container, F&& f)
+    -> decltype(container.begin(), container.end(), void());
 
 template <typename...Types, typename F>
 void for_each_point(mapbox::util::variant<Types...> const& geom, F&& f)
 {
-    mapbox::util::variant<Types...>::visit(geom, [&] (auto const& g) { for_each_point(g, f); });
-}
-
-template <typename Container, typename F>
-auto for_each_point(Container const& container, F&& f)
-    -> decltype(container.begin(), container.end(), void())
-{
-    for (auto const& e: container) {
-        for_each_point(e, f);
-    }
-}
-
-// mutable
-
-template <typename T, typename F>
-void for_each_point(point<T> & point, F&& f)
-{
-    f(point);
+    mapbox::util::variant<Types...>::visit(geom, [&] (auto const& g) {
+        for_each_point(g, f);
+    });
 }
 
 template <typename...Types, typename F>
 void for_each_point(mapbox::util::variant<Types...> & geom, F&& f)
 {
-    mapbox::util::variant<Types...>::visit(geom, [&] (auto & g) { for_each_point(g, f); });
+    mapbox::util::variant<Types...>::visit(geom, [&] (auto & g) {
+        for_each_point(g, f);
+    });
 }
 
 template <typename Container, typename F>
-auto for_each_point(Container & container, F&& f)
+auto for_each_point(Container&& container, F&& f)
     -> decltype(container.begin(), container.end(), void())
 {
-    for (auto & e: container) {
+    for (auto& e: container) {
         for_each_point(e, f);
     }
 }
