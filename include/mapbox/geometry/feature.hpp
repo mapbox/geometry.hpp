@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <experimental/optional>
 
 namespace mapbox {
 namespace geometry {
@@ -38,12 +39,13 @@ struct feature
 
     geometry_type geometry;
     property_map properties {};
+    std::experimental::optional<value> id {};
 };
 
 template <class T>
 bool operator==(feature<T> const& lhs, feature<T> const& rhs)
 {
-    return lhs.geometry == rhs.geometry && lhs.properties == rhs.properties;
+    return lhs.id == rhs.id && lhs.geometry == rhs.geometry && lhs.properties == rhs.properties;
 }
 
 template <class T>

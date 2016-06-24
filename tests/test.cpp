@@ -162,6 +162,15 @@ static void testFeature() {
     assert(!(pf != pf));
 
     assert(p.size() == 6);
+
+    feature<double> id1 { point<double>() };
+    id1.id = { 1 };
+
+    feature<double> id2 { point<double>() };
+    id1.id = { 2 };
+
+    assert(id1 == id1);
+    assert(id1 != id2);
 }
 
 static void testFeatureCollection() {
