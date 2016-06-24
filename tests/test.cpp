@@ -31,6 +31,18 @@ static void testPoint() {
     { point<uint32_t> p(4, 6); assert((p /= 2u) == point<uint32_t>(2, 3)); }
 }
 
+static void testCoordinate() {
+    coordinate<double> c1;
+    assert(int(c1.latitude) == 0);
+    assert(int(c1.longitude) == 0);
+
+    coordinate<uint32_t> c2(2, 3);
+    coordinate<uint32_t> c3(4, 6);
+
+    assert((c2 + c3) == coordinate<uint32_t>(6, 9));
+    assert((c2 + c3) == point<uint32_t>(9, 6));
+}
+
 static void testMultiPoint() {
     multi_point<double> mp1;
     assert(mp1.size() == 0);
@@ -231,6 +243,7 @@ static void testEnvelope() {
 
 int main() {
     testPoint();
+    testCoordinate();
     testMultiPoint();
     testLineString();
     testMultiLineString();
