@@ -1,6 +1,7 @@
 #pragma once
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename T>
 struct point
@@ -28,4 +29,5 @@ bool operator!=(point<T> const& lhs, point<T> const& rhs)
     return lhs.x != rhs.x || lhs.y != rhs.y;
 }
 
-}}
+} // namespace geometry
+} // namespace mapbox

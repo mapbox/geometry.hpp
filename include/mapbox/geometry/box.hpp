@@ -2,7 +2,8 @@
 
 #include <mapbox/geometry/point.hpp>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename T>
 struct box
@@ -29,4 +30,5 @@ bool operator!=(box<T> const& lhs, box<T> const& rhs)
     return lhs.min != rhs.min || lhs.max != rhs.max;
 }
 
-}}
+} // namespace geometry
+} // namespace mapbox

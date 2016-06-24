@@ -6,7 +6,8 @@
 // stl
 #include <vector>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename T, template <typename...> class Cont = std::vector>
 struct linear_ring : Cont<point<T>>
@@ -26,4 +27,5 @@ struct polygon : Cont<linear_ring<T>>
     using container_type::container_type;
 };
 
-}}
+} // namespace geometry
+} // namespace mapbox

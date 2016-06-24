@@ -2,7 +2,8 @@
 
 #include <mapbox/geometry/geometry.hpp>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename Point, typename F>
 auto for_each_point(Point&& point, F&& f)
@@ -40,4 +41,5 @@ auto for_each_point(Container&& container, F&& f)
     }
 }
 
-}}
+} // namespace geometry
+} // namespace mapbox

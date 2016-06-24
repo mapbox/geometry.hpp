@@ -5,7 +5,8 @@
 // stl
 #include <vector>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename T, template <typename...> class Cont = std::vector>
 struct multi_point : Cont<point<T>>
@@ -16,4 +17,5 @@ struct multi_point : Cont<point<T>>
     using container_type::container_type;
 };
 
-}}
+} // namespace geometry
+} // namespace mapbox

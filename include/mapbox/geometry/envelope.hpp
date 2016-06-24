@@ -5,7 +5,8 @@
 
 #include <limits>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 template <typename G, typename T = typename G::coordinate_type>
 box<T> envelope(G const& geometry)
@@ -28,4 +29,5 @@ box<T> envelope(G const& geometry)
     return box<T>(min, max);
 }
 
-}}
+} // namespace geometry
+} // namespace mapbox

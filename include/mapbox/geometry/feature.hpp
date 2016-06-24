@@ -9,7 +9,8 @@
 #include <vector>
 #include <unordered_map>
 
-namespace mapbox { namespace geometry {
+namespace mapbox {
+namespace geometry {
 
 struct value;
 
@@ -47,4 +48,5 @@ struct feature_collection : Cont<feature<T>>
     using container_type::container_type;
 };
 
-}}
+} // namespace geometry
+} // namespace mapbox
