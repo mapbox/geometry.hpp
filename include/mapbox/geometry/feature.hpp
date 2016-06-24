@@ -39,6 +39,18 @@ struct feature
     property_map properties {};
 };
 
+template <class T>
+bool operator==(feature<T> const& lhs, feature<T> const& rhs)
+{
+    return lhs.geometry == rhs.geometry && lhs.properties == rhs.properties;
+}
+
+template <class T>
+bool operator!=(feature<T> const& lhs, feature<T> const& rhs)
+{
+    return !(lhs == rhs);
+}
+
 template <class T, template <typename...> class Cont = std::vector>
 struct feature_collection : Cont<feature<T>>
 {

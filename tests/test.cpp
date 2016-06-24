@@ -37,6 +37,10 @@ static void testMultiPoint() {
 
     multi_point<double> mp2(10);
     assert(mp2.size() == 10);
+
+    assert(mp1 == mp1);
+    assert(!(mp1 != mp1));
+    assert(mp1 != mp2);
 }
 
 static void testLineString() {
@@ -45,6 +49,10 @@ static void testLineString() {
 
     line_string<double> ls2(10);
     assert(ls2.size() == 10);
+
+    assert(ls1 == ls1);
+    assert(!(ls1 != ls1));
+    assert(ls1 != ls2);
 }
 
 static void testMultiLineString() {
@@ -53,6 +61,10 @@ static void testMultiLineString() {
 
     multi_line_string<double> mls2(10);
     assert(mls2.size() == 10);
+
+    assert(mls1 == mls1);
+    assert(!(mls1 != mls1));
+    assert(mls1 != mls2);
 }
 
 static void testPolygon() {
@@ -63,6 +75,10 @@ static void testPolygon() {
     assert(pg2.size() == 1);
     assert(pg2[0].size() == 1);
     assert(pg2[0][0] == point<double>(0, 1));
+
+    assert(pg1 == pg1);
+    assert(!(pg1 != pg1));
+    assert(pg1 != pg2);
 }
 
 static void testMultiPolygon() {
@@ -71,6 +87,10 @@ static void testMultiPolygon() {
 
     multi_polygon<double> mpg2(10);
     assert(mpg2.size() == 10);
+
+    assert(mpg1 == mpg1);
+    assert(!(mpg1 != mpg1));
+    assert(mpg1 != mpg2);
 }
 
 static void testGeometry() {
@@ -94,11 +114,18 @@ static void testGeometry() {
 
     geometry<double> gcg { geometry_collection<double>() };
     assert(gcg.is<geometry_collection<double>>());
+
+    assert(pg == pg);
+    assert(!(pg != pg));
+    assert(pg != lsg);
 }
 
 static void testGeometryCollection() {
     geometry_collection<double> gc1;
     assert(gc1.size() == 0);
+
+    assert(gc1 == gc1);
+    assert(!(gc1 != gc1));
 }
 
 static void testFeature() {
@@ -128,12 +155,21 @@ static void testFeature() {
     assert(p["null"].is<std::nullptr_t>());
     assert(p["null"] == nullptr);
 
+    assert(p == p);
+    assert(!(p != p));
+
+    assert(pf == pf);
+    assert(!(pf != pf));
+
     assert(p.size() == 6);
 }
 
 static void testFeatureCollection() {
     feature_collection<double> fc1;
     assert(fc1.size() == 0);
+
+    assert(fc1 == fc1);
+    assert(!(fc1 != fc1));
 }
 
 struct point_counter {
