@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mapbox/geometry/geometry.hpp>
+#include <mapbox/geometry/box.hpp>
 
 #include <mapbox/variant.hpp>
 
@@ -39,7 +40,9 @@ struct feature
 
     geometry_type geometry;
     property_map properties {};
+
     std::experimental::optional<value> id {};
+    std::experimental::optional<box<T>> bbox {};
 };
 
 template <class T>

@@ -6,11 +6,13 @@
 #include <mapbox/geometry/multi_point.hpp>
 #include <mapbox/geometry/multi_line_string.hpp>
 #include <mapbox/geometry/multi_polygon.hpp>
+#include <mapbox/geometry/box.hpp>
 
 #include <mapbox/variant.hpp>
 
 // stl
 #include <vector>
+#include <experimental/optional>
 
 namespace mapbox {
 namespace geometry {
@@ -38,6 +40,8 @@ struct geometry : geometry_base<T>
      * i.e. (0, 0). Since this is not particularly useful, and could hide bugs, it is disabled.
      */
     geometry() = delete;
+
+    std::experimental::optional<box<T>> bbox {};
 };
 
 template <typename T, template <typename...> class Cont>
