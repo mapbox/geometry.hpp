@@ -28,12 +28,13 @@ struct value : value_base
     using value_base::value_base;
 };
 
+using property_map = std::unordered_map<std::string, value>;
+
 template <class T>
 struct feature
 {
     using coordinate_type = T;
     using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
-    using property_map = std::unordered_map<std::string, value>;
 
     geometry_type geometry;
     property_map properties {};
