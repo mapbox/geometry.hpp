@@ -7,12 +7,7 @@ template <typename T>
 struct point
 {
     using coordinate_type = T;
-    point()
-        : x(), y()
-    {}
-    point(T x_, T y_)
-        : x(x_), y(y_)
-    {}
+    constexpr point(T x_ = T(), T y_ = T()) : x(x_), y(y_) {}
     T x;
     T y;
 };
