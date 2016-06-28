@@ -15,12 +15,23 @@ namespace geometry {
 
 struct value;
 
+struct null_value_t
+{
+    constexpr null_value_t() {}
+    constexpr null_value_t(std::nullptr_t) {}
+};
+
+inline bool operator==(const null_value_t&, const null_value_t&) { return true; }
+inline bool operator!=(const null_value_t&, const null_value_t&) { return false; }
+
+constexpr null_value_t null_value = null_value_t();
+
 // Multiple numeric types (uint64_t, int64_t, double) are present in order to support
 // the widest possible range of JSON numbers, which do not have a maximum range.
 // Implementations that produce `value`s should use that order for type preference,
 // using uint64_t for positive integers, int64_t for negative integers, and double
 // for non-integers and integers outside the range of 64 bits.
-using value_base = mapbox::util::variant<std::nullptr_t, bool, uint64_t, int64_t, double, std::string,
+using value_base = mapbox::util::variant<null_value_t, bool, uint64_t, int64_t, double, std::string,
                                          mapbox::util::recursive_wrapper<std::vector<value>>,
                                          mapbox::util::recursive_wrapper<std::unordered_map<std::string, value>>>;
 

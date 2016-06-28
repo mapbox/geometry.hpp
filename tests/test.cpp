@@ -140,7 +140,7 @@ static void testFeature() {
     p["double"] = 2.5;
     p["uint"] = uint64_t(10);
     p["int"] = int64_t(-10);
-    p["null"] = nullptr;
+    p["null"] = null_value;
 
     assert(p["bool"].is<bool>());
     assert(p["bool"] == true);
@@ -152,7 +152,12 @@ static void testFeature() {
     assert(p["uint"] == uint64_t(10));
     assert(p["int"].is<int64_t>());
     assert(p["int"] == int64_t(-10));
-    assert(p["null"].is<std::nullptr_t>());
+    assert(p["null"].is<null_value_t>());
+    assert(p["null"] == null_value);
+
+    p["null"] = nullptr;
+    assert(p["null"].is<null_value_t>());
+    assert(p["null"] == null_value);
     assert(p["null"] == nullptr);
 
     assert(p == p);
