@@ -1,9 +1,11 @@
 #pragma once
 
+#include <type_traits>
+
 namespace mapbox {
 namespace geometry {
 
-template <typename T>
+template <typename T, typename = std::enable_if_t<std::is_arithmetic<T>::value>>
 struct point
 {
     using coordinate_type = T;
