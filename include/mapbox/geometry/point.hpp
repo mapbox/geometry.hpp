@@ -20,15 +20,15 @@ struct point
 };
 
 template <typename T>
-bool operator==(point<T> const& lhs, point<T> const& rhs)
+constexpr bool operator==(point<T> const& lhs, point<T> const& rhs)
 {
     return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
 template <typename T>
-bool operator!=(point<T> const& lhs, point<T> const& rhs)
+constexpr bool operator!=(point<T> const& lhs, point<T> const& rhs)
 {
-    return lhs.x != rhs.x || lhs.y != rhs.y;
+    return !(lhs == rhs);
 }
 
 } // namespace geometry
