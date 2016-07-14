@@ -10,7 +10,7 @@ struct box
 {
     using point_type = point<T>;
 
-    box(point_type const& min_, point_type const& max_)
+    constexpr box(point_type const& min_, point_type const& max_)
         : min(min_), max(max_)
     {}
 
@@ -19,13 +19,13 @@ struct box
 };
 
 template <typename T>
-bool operator==(box<T> const& lhs, box<T> const& rhs)
+constexpr bool operator==(box<T> const& lhs, box<T> const& rhs)
 {
     return lhs.min == rhs.min && lhs.max == rhs.max;
 }
 
 template <typename T>
-bool operator!=(box<T> const& lhs, box<T> const& rhs)
+constexpr bool operator!=(box<T> const& lhs, box<T> const& rhs)
 {
     return lhs.min != rhs.min || lhs.max != rhs.max;
 }

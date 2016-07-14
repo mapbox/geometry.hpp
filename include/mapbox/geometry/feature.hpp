@@ -21,8 +21,8 @@ struct null_value_t
     constexpr null_value_t(std::nullptr_t) {}
 };
 
-inline bool operator==(const null_value_t&, const null_value_t&) { return true; }
-inline bool operator!=(const null_value_t&, const null_value_t&) { return false; }
+constexpr bool operator==(const null_value_t&, const null_value_t&) { return true; }
+constexpr bool operator!=(const null_value_t&, const null_value_t&) { return false; }
 
 constexpr null_value_t null_value = null_value_t();
 
@@ -57,13 +57,13 @@ struct feature
 };
 
 template <class T>
-bool operator==(feature<T> const& lhs, feature<T> const& rhs)
+constexpr bool operator==(feature<T> const& lhs, feature<T> const& rhs)
 {
     return lhs.id == rhs.id && lhs.geometry == rhs.geometry && lhs.properties == rhs.properties;
 }
 
 template <class T>
-bool operator!=(feature<T> const& lhs, feature<T> const& rhs)
+constexpr bool operator!=(feature<T> const& lhs, feature<T> const& rhs)
 {
     return !(lhs == rhs);
 }
