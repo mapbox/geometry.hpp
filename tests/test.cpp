@@ -155,10 +155,9 @@ static void testFeature() {
     assert(p["null"].is<null_value_t>());
     assert(p["null"] == null_value);
 
-    p["null"] = nullptr;
+    p["null"] = null_value_t{};
     assert(p["null"].is<null_value_t>());
     assert(p["null"] == null_value);
-    assert(p["null"] == nullptr);
 
     assert(p == p);
     assert(!(p != p));
@@ -169,10 +168,10 @@ static void testFeature() {
     assert(p.size() == 6);
 
     feature<double> id1 { point<double>() };
-    id1.id = { 1 };
+    id1.id = { uint64_t(1) };
 
     feature<double> id2 { point<double>() };
-    id1.id = { 2 };
+    id1.id = { uint64_t(2) };
 
     assert(id1 == id1);
     assert(id1 != id2);
