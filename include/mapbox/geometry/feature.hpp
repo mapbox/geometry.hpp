@@ -55,6 +55,15 @@ struct feature
     geometry_type geometry;
     property_map properties {};
     std::experimental::optional<identifier> id {};
+
+    // GCC 4.9 does not support C++14 aggregates with non-static data member
+    // initializers.
+    feature(geometry_type geometry_,
+            property_map properties_ = property_map {},
+            std::experimental::optional<identifier> id_ = std::experimental::optional<identifier> {})
+        : geometry(std::move(geometry_)),
+          properties(std::move(properties_)),
+          id(std::move(id_)) {}
 };
 
 template <class T>
