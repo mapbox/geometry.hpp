@@ -129,7 +129,7 @@ static void testGeometryCollection() {
 }
 
 static void testFeature() {
-    feature<double> pf { point<double>() };
+    feature<double> pf;
     assert(pf.geometry.is<point<double>>());
     assert(pf.properties.size() == 0);
 
@@ -167,10 +167,10 @@ static void testFeature() {
 
     assert(p.size() == 6);
 
-    feature<double> id1 { point<double>() };
+    feature<double> id1;
     id1.id = { uint64_t(1) };
 
-    feature<double> id2 { point<double>() };
+    feature<double> id2;
     id1.id = { uint64_t(2) };
 
     assert(id1 == id1);
