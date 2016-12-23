@@ -23,6 +23,7 @@ struct null_value_t
 
 constexpr bool operator==(const null_value_t&, const null_value_t&) { return true; }
 constexpr bool operator!=(const null_value_t&, const null_value_t&) { return false; }
+constexpr bool operator<(const null_value_t&, const null_value_t&) { return false; }
 
 constexpr null_value_t null_value = null_value_t();
 
