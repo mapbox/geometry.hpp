@@ -1,0 +1,10 @@
+{
+    "name": "@mapbox/geometry-hpp",
+    "version": "0.9.0",
+    "description": "A C++ header only geometry type library",
+    "main": "./include_dirs.js",
+    "repository"   :  {
+      "type" : "git",
+      "url"  : "git://github.com/mapbox/geometry.hpp.git"
+    }
+}
