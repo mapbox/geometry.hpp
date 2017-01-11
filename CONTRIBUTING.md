@@ -1,6 +1,6 @@
 # Contributing
 
-General guidelines for contributing to mapnik-vector-tile
+General guidelines for contributing to geometry.hpp
 
 ## Releasing
 
