@@ -16,4 +16,4 @@ test: tests/* include/mapbox/geometry/* mason_packages/headers/variant/$(VARIANT
 	./test
 
 clean:
-	rm test
+	rm -f test
