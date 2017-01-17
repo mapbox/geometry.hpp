@@ -46,7 +46,12 @@ struct geometry_collection : Cont<geometry<T>>
     using coordinate_type = T;
     using geometry_type = geometry<T>;
     using container_type = Cont<geometry_type>;
-    using container_type::container_type;
+
+    geometry_collection() = default;
+    geometry_collection(geometry_collection const&) = default;
+    geometry_collection(geometry_collection &&) = default;
+    geometry_collection(std::initializer_list<geometry_type> && args)
+      : container_type(std::forward<std::initializer_list<geometry_type>>(args)) {};
 };
 
 } // namespace geometry
