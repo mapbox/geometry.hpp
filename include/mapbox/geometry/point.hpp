@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cmath>
+#include <limits>
+
 namespace mapbox {
 namespace geometry {
 
@@ -20,19 +23,19 @@ struct point
 };
 
 template <typename T>
-bool values_are_equal(T a, T b)
+inline bool values_are_equal(T a, T b)
 {
     return a == b;
 }
 
 template <>
-bool values_are_equal<double>(double a, double b)
+inline bool values_are_equal<double>(double a, double b)
 {
     return std::fabs(a - b) < (3.0 * std::numeric_limits<double>::epsilon());
 }
 
 template <>
-bool values_are_equal<float>(float a, float b)
+inline bool values_are_equal<float>(float a, float b)
 {
     return std::fabs(a - b) < (3.0 * std::numeric_limits<float>::epsilon());
 }
