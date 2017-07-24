@@ -46,11 +46,11 @@ using property_map = std::unordered_map<std::string, value>;
 // The same considerations and requirement for numeric types apply as for `value_base`.
 using identifier = mapbox::util::variant<uint64_t, int64_t, double, std::string>;
 
-template <class T>
+template <class T, int dim = 2>
 struct feature
 {
     using coordinate_type = T;
-    using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
+    using geometry_type = mapbox::geometry::geometry<T, dim>; // Fully qualified to avoid GCC -fpermissive error.
 
     geometry_type geometry;
     property_map properties {};
