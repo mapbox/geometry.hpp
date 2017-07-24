@@ -16,6 +16,10 @@ template <typename Container, typename F>
 auto for_each_point(Container&& container, F&& f)
     -> decltype(container.begin(), container.end(), void());
 
+template <typename Container, typename F>
+auto for_each_point(Container&& container, F&& f)
+    -> decltype(container.control_points, container.knots, void());
+
 template <typename...Types, typename F>
 void for_each_point(mapbox::util::variant<Types...> const& geom, F&& f)
 {
@@ -37,6 +41,15 @@ auto for_each_point(Container&& container, F&& f)
     -> decltype(container.begin(), container.end(), void())
 {
     for (auto& e: container) {
+        for_each_point(e, f);
+    }
+}
+
+template <typename Container, typename F>
+auto for_each_point(Container&& container, F&& f)
+    -> decltype(container.control_points, container.knots, void())
+{
+    for (auto& e: container.control_points) {
         for_each_point(e, f);
     }
 }

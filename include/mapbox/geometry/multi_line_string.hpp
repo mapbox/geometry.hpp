@@ -8,11 +8,11 @@
 namespace mapbox {
 namespace geometry {
 
-template <typename T, template <typename...> class Cont = std::vector>
-struct multi_line_string : Cont<line_string<T>>
+template <typename T, int dim = 2, template <typename...> class Cont = std::vector>
+struct multi_line_string : Cont<line_string<T, dim>>
 {
     using coordinate_type = T;
-    using line_string_type = line_string<T>;
+    using line_string_type = line_string<T, dim>;
     using container_type = Cont<line_string_type>;
     using container_type::container_type;
 };

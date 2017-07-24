@@ -93,6 +93,20 @@ static void testMultiPolygon() {
     assert(mpg1 != mpg2);
 }
 
+static void testSpline() {
+    spline<double> spl1;
+    assert(spl1.control_points.size() == 0);
+    assert(spl1.knots.size() == 0);
+
+    spline<double> spl2 = {{{10, 12}},{1.0}};
+    assert(spl2.control_points.size() == 1);
+    assert(spl2.knots.size() == 1);
+
+    assert(spl1 == spl1);
+    assert(!(spl2 != spl2));
+    assert(spl1 != spl2);
+}
+
 static void testGeometry() {
     geometry<double> pg { point<double>() };
     assert(pg.is<point<double>>());
@@ -249,6 +263,7 @@ int main() {
     testMultiLineString();
     testPolygon();
     testMultiPolygon();
+    testSpline();
     testGeometry();
     testGeometryCollection();
     testFeature();

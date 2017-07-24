@@ -6,6 +6,7 @@
 #include <mapbox/geometry/multi_point.hpp>
 #include <mapbox/geometry/multi_line_string.hpp>
 #include <mapbox/geometry/multi_polygon.hpp>
+#include <mapbox/geometry/spline.hpp>
 
 #include <mapbox/variant.hpp>
 
@@ -15,23 +16,24 @@
 namespace mapbox {
 namespace geometry {
 
-template <typename T, template <typename...> class Cont = std::vector>
+template <typename T, int dim = 2, template <typename...> class Cont = std::vector>
 struct geometry_collection;
 
-template <typename T>
-using geometry_base = mapbox::util::variant<point<T>,
-                                            line_string<T>,
-                                            polygon<T>,
-                                            multi_point<T>,
-                                            multi_line_string<T>,
-                                            multi_polygon<T>,
-                                            geometry_collection<T>>;
+template <typename T, int dim>
+using geometry_base = mapbox::util::variant<point<T, dim>,
+                                            line_string<T, dim>,
+                                            polygon<T,dim>,
+                                            multi_point<T, dim>,
+                                            multi_line_string<T, dim>,
+                                            multi_polygon<T, dim>,
+                                            spline<T, dim>,
+                                            geometry_collection<T, dim>>;
 
-template <typename T>
-struct geometry : geometry_base<T>
+template <typename T, int dim = 2>
+struct geometry : geometry_base<T, dim>
 {
     using coordinate_type = T;
-    using geometry_base<T>::geometry_base;
+    using geometry_base<T, dim>::geometry_base;
 
     /*
      * The default constructor would create a point geometry with default-constructed coordinates;
@@ -40,11 +42,11 @@ struct geometry : geometry_base<T>
     geometry() = delete;
 };
 
-template <typename T, template <typename...> class Cont>
+template <typename T, int dim, template <typename...> class Cont>
 struct geometry_collection : Cont<geometry<T>>
 {
     using coordinate_type = T;
-    using geometry_type = geometry<T>;
+    using geometry_type = geometry<T, dim>;
     using container_type = Cont<geometry_type>;
 
     geometry_collection() = default;
