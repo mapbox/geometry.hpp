@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mapbox/geometry/null.hpp>
 #include <mapbox/geometry/point.hpp>
 #include <mapbox/geometry/line_string.hpp>
 #include <mapbox/geometry/polygon.hpp>
@@ -19,7 +20,8 @@ template <typename T, template <typename...> class Cont = std::vector>
 struct geometry_collection;
 
 template <typename T>
-using geometry_base = mapbox::util::variant<point<T>,
+using geometry_base = mapbox::util::variant<null_geometry_t,
+                                            point<T>,
                                             line_string<T>,
                                             polygon<T>,
                                             multi_point<T>,
