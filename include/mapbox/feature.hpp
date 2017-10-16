@@ -1,6 +1,6 @@
 #pragma once
 
-#include <mapbox/geometry/geometry.hpp>
+#include <mapbox/geometry.hpp>
 
 #include <mapbox/variant.hpp>
 
@@ -11,7 +11,7 @@
 #include <experimental/optional>
 
 namespace mapbox {
-namespace geometry {
+namespace feature {
 
 struct value;
 
