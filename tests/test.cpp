@@ -4,6 +4,16 @@
 
 using namespace mapbox::geometry;
 
+static void testNull() {
+    null_geometry_t n1;
+    null_geometry_t n2;
+    assert(n1 == n2);
+    assert(!(n1 != n2));
+    assert(!(n1 < n2));
+    assert(!(n1 > n2));
+
+}
+
 static void testPoint() {
     point<double> p1;
     assert(int(p1.x) == 0);
@@ -94,6 +104,9 @@ static void testMultiPolygon() {
 }
 
 static void testGeometry() {
+    geometry<double> ng { null_geometry };
+    assert(ng.is<null_geometry_t>());
+
     geometry<double> pg { point<double>() };
     assert(pg.is<point<double>>());
 
@@ -243,6 +256,7 @@ static void testEnvelope() {
 }
 
 int main() {
+    testNull();
     testPoint();
     testMultiPoint();
     testLineString();
