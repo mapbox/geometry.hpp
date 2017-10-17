@@ -11,6 +11,8 @@ static void testEmpty() {
     assert(!(n1 != n2));
     assert(!(n1 < n2));
     assert(!(n1 > n2));
+    assert(n1 <= n2);
+    assert(n1 >= n2);
 
 }
 
