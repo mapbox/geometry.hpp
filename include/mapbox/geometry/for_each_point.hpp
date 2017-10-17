@@ -6,7 +6,7 @@ namespace mapbox {
 namespace geometry {
 
 template <typename F>
-void for_each_point(mapbox::geometry::null_geometry_t const&, F &&) {}
+void for_each_point(mapbox::geometry::empty const&, F &&) {}
 
 template <typename Point, typename F>
 auto for_each_point(Point&& point, F&& f)
