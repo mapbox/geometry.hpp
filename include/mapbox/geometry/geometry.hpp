@@ -1,6 +1,6 @@
 #pragma once
 
-#include <mapbox/geometry/null.hpp>
+#include <mapbox/geometry/empty.hpp>
 #include <mapbox/geometry/point.hpp>
 #include <mapbox/geometry/line_string.hpp>
 #include <mapbox/geometry/polygon.hpp>
@@ -20,7 +20,7 @@ template <typename T, template <typename...> class Cont = std::vector>
 struct geometry_collection;
 
 template <typename T>
-using geometry_base = mapbox::util::variant<null_geometry_t,
+using geometry_base = mapbox::util::variant<empty,
                                             point<T>,
                                             line_string<T>,
                                             polygon<T>,
@@ -34,12 +34,6 @@ struct geometry : geometry_base<T>
 {
     using coordinate_type = T;
     using geometry_base<T>::geometry_base;
-
-    /*
-     * The default constructor would create a point geometry with default-constructed coordinates;
-     * i.e. (0, 0). Since this is not particularly useful, and could hide bugs, it is disabled.
-     */
-    geometry() = delete;
 };
 
 template <typename T, template <typename...> class Cont>
