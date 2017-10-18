@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <experimental/optional>
 
 namespace mapbox {
 namespace feature {
@@ -44,7 +43,7 @@ struct value : value_base
 using property_map = std::unordered_map<std::string, value>;
 
 // The same considerations and requirement for numeric types apply as for `value_base`.
-using identifier = mapbox::util::variant<uint64_t, int64_t, double, std::string>;
+using identifier = mapbox::util::variant<null_value_t, uint64_t, int64_t, double, std::string>;
 
 template <class T>
 struct feature
@@ -53,17 +52,8 @@ struct feature
     using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
 
     geometry_type geometry;
-    property_map properties {};
-    std::experimental::optional<identifier> id {};
-
-    // GCC 4.9 does not support C++14 aggregates with non-static data member
-    // initializers.
-    feature(geometry_type geometry_,
-            property_map properties_ = property_map {},
-            std::experimental::optional<identifier> id_ = std::experimental::optional<identifier> {})
-        : geometry(std::move(geometry_)),
-          properties(std::move(properties_)),
-          id(std::move(id_)) {}
+    property_map properties;
+    identifier id;
 };
 
 template <class T>
