@@ -50,10 +50,19 @@ struct feature
 {
     using coordinate_type = T;
     using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
-
+    
     geometry_type geometry;
-    property_map properties {};
-    identifier id {};
+    property_map properties;
+    identifier id;
+
+    feature() : geometry(), properties(), id() {}
+    feature(geometry_type const& geom_) : geometry(geom_), properties(), id() {}
+    feature(geometry_type && geom_) : geometry(geom_), properties(), id() {}
+    feature(geometry_type const& geom_, property_map const& prop_) : geometry(geom_), properties(prop_), id() {}
+    feature(geometry_type && geom_, property_map && prop_) : geometry(geom_), properties(prop_), id() {}
+    feature(geometry_type const& geom_, property_map const& prop_, identifier const& id_) : geometry(geom_), properties(prop_), id(id_) {}
+    feature(geometry_type && geom_, property_map && prop_, identifier && id_) : geometry(geom_), properties(prop_), id(id_) {}
+
 };
 
 template <class T>
