@@ -52,8 +52,8 @@ struct feature
     using geometry_type = mapbox::geometry::geometry<T>; // Fully qualified to avoid GCC -fpermissive error.
 
     geometry_type geometry;
-    property_map properties;
-    identifier id;
+    property_map properties {};
+    identifier id {};
 };
 
 template <class T>
