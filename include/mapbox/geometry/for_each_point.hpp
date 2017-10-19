@@ -5,6 +5,9 @@
 namespace mapbox {
 namespace geometry {
 
+template <typename F>
+void for_each_point(mapbox::geometry::empty const&, F &&) {}
+
 template <typename Point, typename F>
 auto for_each_point(Point&& point, F&& f)
     -> decltype(point.x, point.y, void())
