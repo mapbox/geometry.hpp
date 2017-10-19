@@ -1,8 +1,10 @@
 #include <mapbox/geometry.hpp>
+#include <mapbox/feature.hpp>
 
 #include <cassert>
 
 using namespace mapbox::geometry;
+using namespace mapbox::feature;
 
 static void testEmpty() {
     empty n1;

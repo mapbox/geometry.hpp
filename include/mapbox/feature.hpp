@@ -1,6 +1,6 @@
 #pragma once
 
-#include <mapbox/geometry/geometry.hpp>
+#include <mapbox/geometry.hpp>
 
 #include <mapbox/variant.hpp>
 
@@ -8,10 +8,9 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <experimental/optional>
 
 namespace mapbox {
-namespace geometry {
+namespace feature {
 
 struct value;
 
@@ -44,7 +43,7 @@ struct value : value_base
 using property_map = std::unordered_map<std::string, value>;
 
 // The same considerations and requirement for numeric types apply as for `value_base`.
-using identifier = mapbox::util::variant<uint64_t, int64_t, double, std::string>;
+using identifier = mapbox::util::variant<null_value_t, uint64_t, int64_t, double, std::string>;
 
 template <class T>
 struct feature
@@ -54,7 +53,7 @@ struct feature
 
     geometry_type geometry;
     property_map properties {};
-    std::experimental::optional<identifier> id {};
+    identifier id {};
 };
 
 template <class T>
