@@ -14,11 +14,7 @@ namespace feature {
 
 struct value;
 
-struct null_value_t
-{
-    constexpr null_value_t() {}
-    constexpr null_value_t(std::nullptr_t) {}
-};
+struct null_value_t {};
 
 constexpr bool operator==(const null_value_t&, const null_value_t&) { return true; }
 constexpr bool operator!=(const null_value_t&, const null_value_t&) { return false; }
