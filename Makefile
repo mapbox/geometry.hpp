@@ -1,7 +1,7 @@
 CXXFLAGS += -I include -std=c++14 -DDEBUG -O0 -Wall -Wextra -Werror
 MASON ?= .mason/mason
 
-VARIANT = 1.1.4
+VARIANT = 1.1.5
 
 default: test
 
