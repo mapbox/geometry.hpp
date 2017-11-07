@@ -242,6 +242,26 @@ static void testEnvelope() {
     assert(envelope(geometry_collection<int>({point<int>(0, 0)})) == box<int>({0, 0}, {0, 0}));
 }
 
+static void testCircle() {
+    point<int> center1(1, 2);
+    point<int> center2(2, 1);
+    circle<int> circle1(center1, 5);
+    circle<int> circle2(center1, 6);
+    circle<int> circle3(center2, 5);
+    circle<int> circle4(center1, 5);
+
+    assert(!(circle1 == circle2));
+    assert(circle1 != circle2);
+    assert(!(circle1 == circle3));
+    assert(circle1 != circle3);
+    assert(circle1 == circle4);
+    assert(!(circle1 != circle4));
+
+    assert(circle2 != circle3);
+    assert(circle2 != circle4);
+    assert(circle3 != circle4);
+}
+
 int main() {
     testPoint();
     testMultiPoint();
@@ -256,5 +276,6 @@ int main() {
 
     testForEachPoint();
     testEnvelope();
+    testCircle();
     return 0;
 }
