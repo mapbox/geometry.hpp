@@ -9,7 +9,7 @@ Provides header-only, generic C++ interfaces for geometry types, geometry collec
  - `mapbox::geometry::polygon`
  - `mapbox::geometry::multi_polygon`
  - `mapbox::geometry::geometry_collection`
- - `mapbox::geometry::feature` (experimental)
+ - `mapbox::feature::feature` (experimental)
 
 ### Design
 
