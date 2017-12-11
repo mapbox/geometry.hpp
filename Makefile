@@ -1,19 +1,31 @@
-CXXFLAGS += -I include -std=c++14 -DDEBUG -O0 -Wall -Wextra -Werror
-MASON ?= .mason/mason
 
-VARIANT = 1.1.5
+# Whether to turn compiler warnings into errors
+export WERROR ?= true
 
-default: test
+default: release
 
-$(MASON):
-	git submodule update --init
+release:
+	mkdir -p build && cd build && cmake ../ -DCMAKE_BUILD_TYPE=Release -DWERROR=$(WERROR) && VERBOSE=1 cmake --build .
 
-mason_packages/headers/variant/$(VARIANT):
-	$(MASON) install variant $(VARIANT)
+debug:
+	mkdir -p build && cd build && cmake ../ -DCMAKE_BUILD_TYPE=Debug -DWERROR=$(WERROR) && VERBOSE=1 cmake --build .
 
-test: tests/* include/mapbox/geometry/* mason_packages/headers/variant/$(VARIANT) Makefile
-	$(CXX) tests/*.cpp $(CXXFLAGS) `$(MASON) cflags variant $(VARIANT)` -o test
-	./test
+test:
+	@if [ -f ./build/unit-tests ]; then ./build/unit-tests; else echo "Please run 'make release' or 'make debug' first" && exit 1; fi
+
+bench:
+	@if [ -f ./build/bench-tests ]; then ./build/bench-tests; else echo "Please run 'make release' or 'make debug' first" && exit 1; fi
+
+tidy:
+	./scripts/clang-tidy.sh
+
+coverage:
+	./scripts/coverage.sh
 
 clean:
-	rm -f test
+	rm -rf build
+
+format:
+	./scripts/format.sh
+
+.PHONY: test bench
