@@ -5,16 +5,20 @@
 using namespace mapbox::geometry;
 
 struct point_counter {
+    
     std::size_t count = 0;
+    
     template <class Point>
-    void operator()(Point const&) { count++; };
+    void operator()(Point const&) {
+        count++; 
+    }
 };
 
 TEST_CASE("test for each point")
 {
-    auto count_points = [] (auto const& g) {
+    auto count_points = [] (auto const& g0) {
         point_counter counter;
-        for_each_point(g, counter);
+        for_each_point(g0, counter);
         return counter.count;
     };
 
