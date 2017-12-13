@@ -1,5 +1,7 @@
 # geometry.hpp
 
+[![badge](https://mapbox.s3.amazonaws.com/cpp-assets/hpp-skel-badge_blue.svg)](https://github.com/mapbox/hpp-skel)
+
 Provides header-only, generic C++ interfaces for geometry types, geometry collections, and features.
 
  - `mapbox::geometry::point`
