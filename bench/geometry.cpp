@@ -12,6 +12,7 @@ static void BM_polygon_allocation(benchmark::State& state) // NOLINT google-runt
         r.reserve(s);
         r.emplace_back(rand(), rand());
     }
+    state.SetLabel(std::to_string((s * 16) / 1024) + "kb");
 }
 
 BENCHMARK(BM_polygon_allocation)->RangeMultiplier(2)->Range(1024, 1 << 29);
