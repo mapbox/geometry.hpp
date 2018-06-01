@@ -15,6 +15,7 @@ struct multi_point : Cont<point<T>>
     using point_type = point<T>;
     using container_type = Cont<point_type>;
     using container_type::container_type;
+    using size_type = typename container_type::size_type;
 };
 
 } // namespace geometry

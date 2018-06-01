@@ -85,6 +85,7 @@ struct feature_collection : Cont<feature<T>>
     using feature_type = feature<T>;
     using container_type = Cont<feature_type>;
     using container_type::container_type;
+    using size_type = typename container_type::size_type;
 };
 
 } // namespace geometry

@@ -46,6 +46,7 @@ struct geometry_collection : Cont<geometry<T>>
     using coordinate_type = T;
     using geometry_type = geometry<T>;
     using container_type = Cont<geometry_type>;
+    using size_type = typename container_type::size_type;
 
     geometry_collection() = default;
     geometry_collection(geometry_collection const&) = default;
