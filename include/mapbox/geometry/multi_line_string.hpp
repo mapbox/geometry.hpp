@@ -15,6 +15,7 @@ struct multi_line_string : Cont<line_string<T>>
     using line_string_type = line_string<T>;
     using container_type = Cont<line_string_type>;
     using container_type::container_type;
+    using size_type = typename container_type::size_type;
 };
 
 } // namespace geometry

@@ -16,6 +16,7 @@ struct linear_ring : Cont<point<T>>
     using point_type = point<T>;
     using container_type = Cont<point_type>;
     using container_type::container_type;
+    using size_type = typename container_type::size_type;
 };
 
 template <typename T, template <typename...> class Cont = std::vector>
@@ -25,6 +26,7 @@ struct polygon : Cont<linear_ring<T>>
     using linear_ring_type = linear_ring<T>;
     using container_type = Cont<linear_ring_type>;
     using container_type::container_type;
+    using size_type = typename container_type::size_type;
 };
 
 } // namespace geometry
