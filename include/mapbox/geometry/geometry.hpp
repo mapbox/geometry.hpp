@@ -48,11 +48,10 @@ struct geometry_collection : Cont<geometry<T>>
     using container_type = Cont<geometry_type>;
     using size_type = typename container_type::size_type;
 
-    geometry_collection() = default;
-    geometry_collection(geometry_collection const&) = default;
-    geometry_collection(geometry_collection &&) = default;
+    template <class... Args>
+    geometry_collection(Args&&... args) : container_type(std::forward<Args>(args)...) {}
     geometry_collection(std::initializer_list<geometry_type> args)
-      : container_type(args) {}
+        : container_type(std::move(args)) {}
 };
 
 } // namespace geometry
