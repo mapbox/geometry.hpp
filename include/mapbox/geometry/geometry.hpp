@@ -51,8 +51,8 @@ struct geometry_collection : Cont<geometry<T>>
     geometry_collection() = default;
     geometry_collection(geometry_collection const&) = default;
     geometry_collection(geometry_collection &&) = default;
-    geometry_collection(std::initializer_list<geometry_type> && args)
-      : container_type(std::forward<std::initializer_list<geometry_type>>(args)) {};
+    geometry_collection(std::initializer_list<geometry_type> args)
+      : container_type(args) {}
 };
 
 } // namespace geometry
