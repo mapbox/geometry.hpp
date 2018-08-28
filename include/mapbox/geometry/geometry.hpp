@@ -45,7 +45,9 @@ struct geometry_collection : Cont<geometry<T>>
     using size_type = typename container_type::size_type;
 
     template <class... Args>
-    geometry_collection(Args&&... args) : container_type(std::forward<Args>(args)...) {}
+    geometry_collection(Args&&... args) : container_type(std::forward<Args>(args)...)
+    {
+    }
     geometry_collection(std::initializer_list<geometry_type> args)
         : container_type(std::move(args)) {}
 };
