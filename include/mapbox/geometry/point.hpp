@@ -10,10 +10,12 @@ struct point
 
     constexpr point()
         : x(), y()
-    {}
+    {
+    }
     constexpr point(T x_, T y_)
         : x(x_), y(y_)
-    {}
+    {
+    }
 
     T x;
     T y;

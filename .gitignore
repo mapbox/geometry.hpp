@@ -1,2 +1,5 @@
 mason_packages
-build
+cmake-build
+.toolchain
+.mason
+local.env
