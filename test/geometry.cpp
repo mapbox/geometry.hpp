@@ -1,7 +1,15 @@
-#include <mapbox/geometry.hpp>
 #include <catch.hpp>
+#include <mapbox/geometry.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::geometry;
+using mapbox::geometry::geometry_collection;
+using mapbox::geometry::empty;
+using mapbox::geometry::point;
+using mapbox::geometry::multi_point;
+using mapbox::geometry::line_string;
+using mapbox::geometry::multi_line_string;
+using mapbox::geometry::polygon;
+using mapbox::geometry::multi_polygon;
 
 TEST_CASE("test empty in geometry")
 {
@@ -129,7 +137,7 @@ TEST_CASE("test geometry")
 TEST_CASE("test geometry collection")
 {
     geometry_collection<int64_t> gc1;
-    CHECK(gc1.size() == 0);
+    CHECK(gc1.empty());
 
     CHECK(gc1 == gc1);
     CHECK(!(gc1 != gc1));

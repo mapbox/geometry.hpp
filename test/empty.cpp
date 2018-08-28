@@ -1,7 +1,7 @@
-#include <mapbox/geometry/empty.hpp>
 #include <catch.hpp>
+#include <mapbox/geometry/empty.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::empty;
 
 TEST_CASE("test empty")
 {

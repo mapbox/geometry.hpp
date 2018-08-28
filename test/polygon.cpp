@@ -1,12 +1,14 @@
-#include <mapbox/geometry/polygon.hpp>
 #include <catch.hpp>
+#include <mapbox/geometry/polygon.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::linear_ring;
+using mapbox::geometry::polygon;
+using mapbox::geometry::point;
 
 TEST_CASE("test polygon - double")
 {
     polygon<double> poly1;
-    CHECK(poly1.size() == 0);
+    CHECK(poly1.empty());
 
     linear_ring<double> lr1;
     point<double> p1(1.5,1.6);
@@ -30,7 +32,7 @@ TEST_CASE("test polygon - double")
 TEST_CASE("test polygon - int64_t")
 {
     polygon<int64_t> poly1;
-    CHECK(poly1.size() == 0);
+    CHECK(poly1.empty());
 
     linear_ring<int64_t> lr1;
     point<int64_t> p1(1,2);
