@@ -21,7 +21,7 @@ TEST_CASE("test polygon - double")
     poly1.emplace_back();
     CHECK(poly1.size() == 2);
 
-    polygon<double> poly2(10);
+    polygon<double> poly2(std::size_t(10));
     CHECK(poly2.size() == 10);
 
     CHECK(poly1 == poly1);
@@ -49,7 +49,7 @@ TEST_CASE("test polygon - int64_t")
     lr2.emplace_back(-4, 5);
     CHECK(poly1.size() == 2);
 
-    polygon<int64_t> poly2(10);
+    polygon<int64_t> poly2(std::size_t(10));
     CHECK(poly2.size() == 10);
 
     CHECK(poly1 == poly1);

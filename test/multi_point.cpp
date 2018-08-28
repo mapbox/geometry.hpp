@@ -16,7 +16,7 @@ TEST_CASE("test multi point - double")
     mp1.emplace_back(2.5, 2.6);
     CHECK(mp1.size() == 2);
 
-    multi_point<double> mp2(10);
+    multi_point<double> mp2(std::size_t(10));
     CHECK(mp2.size() == 10);
 
     CHECK(mp1 == mp1);
@@ -36,7 +36,7 @@ TEST_CASE("test multi point - int64_t")
     mp1.emplace_back(3, 4);
     CHECK(mp1.size() == 2);
 
-    multi_point<int64_t> mp2(10);
+    multi_point<int64_t> mp2(std::size_t(10));
     CHECK(mp2.size() == 10);
 
     CHECK(mp1 == mp1);
