@@ -1,12 +1,13 @@
-#include <mapbox/geometry/multi_point.hpp>
 #include <catch.hpp>
+#include <mapbox/geometry/multi_point.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::multi_point;
+using mapbox::geometry::point;
 
 TEST_CASE("test multi point - double")
 {
     multi_point<double> mp1;
-    CHECK(mp1.size() == 0);
+    CHECK(mp1.empty());
 
     point<double> p1(1.5,1.6);
     mp1.push_back(p1);
@@ -26,7 +27,7 @@ TEST_CASE("test multi point - double")
 TEST_CASE("test multi point - int64_t")
 {
     multi_point<int64_t> mp1;
-    CHECK(mp1.size() == 0);
+    CHECK(mp1.empty());
 
     point<int64_t> p1(1,2);
     mp1.push_back(p1);

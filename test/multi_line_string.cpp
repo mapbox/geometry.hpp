@@ -1,12 +1,14 @@
-#include <mapbox/geometry/multi_line_string.hpp>
 #include <catch.hpp>
+#include <mapbox/geometry/multi_line_string.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::multi_line_string;
+using mapbox::geometry::line_string;
+using mapbox::geometry::point;
 
 TEST_CASE("test multi line string - double")
 {
     multi_line_string<double> mls1;
-    CHECK(mls1.size() == 0);
+    CHECK(mls1.empty());
 
     line_string<double> ls1;
     point<double> p1(1.5,1.6);
@@ -30,7 +32,7 @@ TEST_CASE("test multi line string - double")
 TEST_CASE("test multi line string - int64_t")
 {
     multi_line_string<int64_t> mls1;
-    CHECK(mls1.size() == 0);
+    CHECK(mls1.empty());
 
     line_string<int64_t> ls1;
     point<int64_t> p1(1,2);
