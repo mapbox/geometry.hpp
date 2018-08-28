@@ -3,18 +3,18 @@
 
 using mapbox::geometry::point;
 
-using mapbox::feature::null_value_t;
-using mapbox::feature::null_value;
 using mapbox::feature::feature;
 using mapbox::feature::feature_collection;
+using mapbox::feature::null_value;
+using mapbox::feature::null_value_t;
 
 TEST_CASE("test feature")
 {
-    feature<int64_t> pf { point<int64_t>() };
+    feature<int64_t> pf{point<int64_t>()};
     CHECK(pf.geometry.is<point<int64_t>>());
     CHECK(pf.properties.empty());
 
-    auto &p = pf.properties;
+    auto& p = pf.properties;
 
     p["bool"] = true;
     p["string"] = std::string("foo");
@@ -48,11 +48,11 @@ TEST_CASE("test feature")
 
     CHECK(p.size() == 6);
 
-    feature<int64_t> id1 { point<int64_t>() };
-    id1.id = { uint64_t(1) };
+    feature<int64_t> id1{point<int64_t>()};
+    id1.id = {uint64_t(1)};
 
-    feature<int64_t> id2 { point<int64_t>() };
-    id1.id = { uint64_t(2) };
+    feature<int64_t> id2{point<int64_t>()};
+    id1.id = {uint64_t(2)};
 
     CHECK(id1 == id1);
     CHECK(id1 != id2);

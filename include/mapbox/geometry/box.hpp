@@ -13,7 +13,8 @@ struct box
 
     constexpr box(point_type const& min_, point_type const& max_)
         : min(min_), max(max_)
-    {}
+    {
+    }
 
     point_type min;
     point_type max;
