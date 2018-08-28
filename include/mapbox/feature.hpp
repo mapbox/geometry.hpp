@@ -14,7 +14,9 @@ namespace feature {
 
 struct value;
 
-struct null_value_t {};
+struct null_value_t
+{
+};
 
 constexpr bool operator==(const null_value_t&, const null_value_t&) { return true; }
 constexpr bool operator!=(const null_value_t&, const null_value_t&) { return false; }
@@ -57,14 +59,15 @@ struct feature
           id() {}
     feature(geometry_type const& geom_)
         : geometry(geom_),
-          properties(), id() {}
-    feature(geometry_type && geom_)
+          properties(),
+          id() {}
+    feature(geometry_type&& geom_)
         : geometry(std::move(geom_)),
           properties(),
           id() {}
     feature(geometry_type const& geom_, property_map const& prop_)
         : geometry(geom_), properties(prop_), id() {}
-    feature(geometry_type && geom_, property_map && prop_)
+    feature(geometry_type&& geom_, property_map&& prop_)
         : geometry(std::move(geom_)),
           properties(std::move(prop_)),
           id() {}
@@ -72,7 +75,7 @@ struct feature
         : geometry(geom_),
           properties(prop_),
           id(id_) {}
-    feature(geometry_type && geom_, property_map && prop_, identifier && id_)
+    feature(geometry_type&& geom_, property_map&& prop_, identifier&& id_)
         : geometry(std::move(geom_)),
           properties(std::move(prop_)),
           id(std::move(id_)) {}
@@ -104,5 +107,5 @@ struct feature_collection : Cont<feature<T>>
         : container_type(std::move(args)) {}
 };
 
-} // namespace geometry
+} // namespace feature
 } // namespace mapbox

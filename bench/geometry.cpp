@@ -8,7 +8,7 @@ static void BM_polygon_allocation(benchmark::State& state) // NOLINT google-runt
 {
     std::size_t s = state.range(0);
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(-99,99);
+    std::uniform_int_distribution<int> distribution(-99, 99);
     auto dice = std::bind(distribution, generator);
     while (state.KeepRunning())
     {

@@ -1,16 +1,16 @@
 #include <catch.hpp>
 #include <mapbox/geometry/envelope.hpp>
 
-using mapbox::geometry::envelope;
 using mapbox::geometry::box;
-using mapbox::geometry::line_string;
-using mapbox::geometry::point;
-using mapbox::geometry::polygon;
-using mapbox::geometry::multi_point;
-using mapbox::geometry::multi_line_string;
-using mapbox::geometry::multi_polygon;
+using mapbox::geometry::envelope;
 using mapbox::geometry::geometry;
 using mapbox::geometry::geometry_collection;
+using mapbox::geometry::line_string;
+using mapbox::geometry::multi_line_string;
+using mapbox::geometry::multi_point;
+using mapbox::geometry::multi_polygon;
+using mapbox::geometry::point;
+using mapbox::geometry::polygon;
 
 TEST_CASE("test envelope")
 {
