@@ -16,7 +16,7 @@ TEST_CASE("test line string - double")
     ls1.emplace_back(2.5, 2.6);
     CHECK(ls1.size() == 2);
 
-    line_string<double> ls2(10);
+    line_string<double> ls2(std::size_t(10));
     CHECK(ls2.size() == 10);
 
     CHECK(ls1 == ls1);
@@ -36,7 +36,7 @@ TEST_CASE("test line string - int64_t")
     ls1.emplace_back(3, 4);
     CHECK(ls1.size() == 2);
 
-    line_string<int64_t> ls2(10);
+    line_string<int64_t> ls2(std::size_t(10));
     CHECK(ls2.size() == 10);
 
     CHECK(ls1 == ls1);

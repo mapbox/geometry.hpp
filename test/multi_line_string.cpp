@@ -21,7 +21,7 @@ TEST_CASE("test multi line string - double")
     mls1.emplace_back();
     CHECK(mls1.size() == 2);
 
-    multi_line_string<double> mls2(10);
+    multi_line_string<double> mls2(std::size_t(10));
     CHECK(mls2.size() == 10);
 
     CHECK(mls1 == mls1);
@@ -49,7 +49,7 @@ TEST_CASE("test multi line string - int64_t")
     ls2.emplace_back(-4, 5);
     CHECK(mls1.size() == 2);
 
-    multi_line_string<int64_t> mls2(10);
+    multi_line_string<int64_t> mls2(std::size_t(10));
     CHECK(mls2.size() == 10);
 
     CHECK(mls1 == mls1);

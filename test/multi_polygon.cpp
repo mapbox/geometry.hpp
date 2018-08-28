@@ -13,7 +13,7 @@ TEST_CASE("test multi polygon - double")
     mp1.push_back(poly1);
     CHECK(mp1.size() == 1);
 
-    multi_polygon<double> mp2(10);
+    multi_polygon<double> mp2(std::size_t(10));
     CHECK(mp2.size() == 10);
 
     CHECK(mp1 == mp1);
@@ -30,7 +30,7 @@ TEST_CASE("test multi polygon - int64_t")
     mp1.push_back(poly1);
     CHECK(mp1.size() == 1);
 
-    multi_polygon<int64_t> mp2(10);
+    multi_polygon<int64_t> mp2(std::size_t(10));
     CHECK(mp2.size() == 10);
 
     CHECK(mp1 == mp1);
