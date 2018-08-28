@@ -102,7 +102,9 @@ struct feature_collection : Cont<feature<T>>
     using size_type = typename container_type::size_type;
 
     template <class... Args>
-    feature_collection(Args&&... args) : container_type(std::forward<Args>(args)...) {}
+    feature_collection(Args&&... args) : container_type(std::forward<Args>(args)...)
+    {
+    }
     feature_collection(std::initializer_list<feature_type> args)
         : container_type(std::move(args)) {}
 };
