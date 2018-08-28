@@ -1,15 +1,19 @@
+#include <catch.hpp>
 #include <mapbox/geometry/for_each_point.hpp>
 #include <mapbox/geometry/point_arithmetic.hpp>
-#include <catch.hpp>
 
-using namespace mapbox::geometry;
+using mapbox::geometry::point;
+using mapbox::geometry::line_string;
+using mapbox::geometry::polygon;
+using mapbox::geometry::geometry;
+using mapbox::geometry::for_each_point;
 
 struct point_counter {
     
     std::size_t count = 0;
     
     template <class Point>
-    void operator()(Point const&) {
+    void operator()(Point const& /*unused*/) {
         count++; 
     }
 };

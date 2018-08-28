@@ -1,14 +1,18 @@
-#include <mapbox/feature.hpp>
 #include <catch.hpp>
+#include <mapbox/feature.hpp>
 
-using namespace mapbox::geometry;
-using namespace mapbox::feature;
+using mapbox::geometry::point;
+
+using mapbox::feature::null_value_t;
+using mapbox::feature::null_value;
+using mapbox::feature::feature;
+using mapbox::feature::feature_collection;
 
 TEST_CASE("test feature")
 {
     feature<int64_t> pf { point<int64_t>() };
     CHECK(pf.geometry.is<point<int64_t>>());
-    CHECK(pf.properties.size() == 0);
+    CHECK(pf.properties.empty());
 
     auto &p = pf.properties;
 
@@ -57,7 +61,7 @@ TEST_CASE("test feature")
 TEST_CASE("test feature collection")
 {
     feature_collection<int64_t> fc1;
-    CHECK(fc1.size() == 0);
+    CHECK(fc1.empty());
 
     CHECK(fc1 == fc1);
     CHECK(!(fc1 != fc1));
