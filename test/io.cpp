@@ -5,6 +5,8 @@
 
 TEST_CASE("operator<<")
 {
+    mapbox::feature::null_value_t null;
+
     mapbox::geometry::empty empty;
     mapbox::geometry::point<double> point{10, 20};
     mapbox::geometry::point<double> point2{30, 40};
@@ -16,6 +18,7 @@ TEST_CASE("operator<<")
     mapbox::geometry::geometry_collection<double> collection{multiPolygon};
 
     std::stringstream stream;
+    stream << null << std::endl;
     stream << empty << std::endl;
     stream << point << std::endl;
     stream << lineString << std::endl;
@@ -27,6 +30,9 @@ TEST_CASE("operator<<")
     stream << mapbox::geometry::geometry<double>{collection} << std::endl;
 
     std::string line;
+
+    std::getline(stream, line);
+    CHECK(line == std::string("[]"));
 
     std::getline(stream, line);
     CHECK(line == std::string("[]"));
