@@ -56,6 +56,20 @@ TEST_CASE("test feature")
 
     CHECK(id1 == id1);
     CHECK(id1 != id2);
+
+    feature<int64_t> fs1{point<int64_t>()};
+    feature<int64_t> fs2{point<int64_t>()};
+
+    fs1.source = "source1";
+    fs1.sourceLayer = "sourceLayer1";
+    fs2.source = "source1";
+    fs2.sourceLayer = "sourceLayer1";
+    fs1.state["hover"] = true;
+    fs2.state["hover"] = true;
+    CHECK(fs1 == fs2);
+
+    fs2.state["hover"] = false;
+    CHECK(fs1 != fs2);
 }
 
 TEST_CASE("test feature collection")
