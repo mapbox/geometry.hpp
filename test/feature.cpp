@@ -7,6 +7,36 @@ using mapbox::feature::feature;
 using mapbox::feature::feature_collection;
 using mapbox::feature::null_value;
 using mapbox::feature::null_value_t;
+using mapbox::feature::value;
+
+namespace {
+
+template <typename T, typename U>
+void checkType(U&& arg) try
+{
+    value v{std::forward<U>(arg)};
+    CHECK(v);
+    CHECK(v.template is<T>());
+    CHECK(v.template get<T>() == arg);
+}
+catch (...)
+{
+    FAIL();
+}
+
+} // namespace
+
+TEST_CASE("test value")
+{
+    CHECK(!value());
+    checkType<int64_t>(32);
+    checkType<uint64_t>(32u);
+    checkType<bool>(false);
+    checkType<std::string>("hello");
+
+    value intV{32};
+    CHECK_THROWS(intV.get<uint64_t>());
+}
 
 TEST_CASE("test feature")
 {
