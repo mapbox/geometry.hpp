@@ -36,6 +36,18 @@ TEST_CASE("test value")
 
     value intV{32};
     CHECK_THROWS(intV.get<uint64_t>());
+
+    auto* result = intV.getInt();
+    CHECK(result);
+    CHECK(*result == 32);
+    *result = 100;
+    CHECK(intV.get<int64_t>() == 100);
+
+    CHECK_FALSE(intV.getUint());
+    CHECK_FALSE(intV.getBool());
+    CHECK_FALSE(intV.getDouble());
+    CHECK_FALSE(intV.getArray());
+    CHECK_FALSE(intV.getObject());
 }
 
 TEST_CASE("test feature")

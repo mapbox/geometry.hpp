@@ -24,6 +24,17 @@ constexpr bool operator<(const null_value_t&, const null_value_t&) { return fals
 
 constexpr null_value_t null_value = null_value_t();
 
+#define DECLARE_VALUE_TYPE_ACCESOR(NAME, TYPE)        \
+    TYPE* get##NAME() noexcept                        \
+    {                                                 \
+        return match(                                 \
+            [](TYPE& val) -> TYPE* { return &val; },  \
+            [](auto&) -> TYPE* { return nullptr; });  \
+    }                                                 \
+    const TYPE* get##NAME() const noexcept            \
+    {                                                 \
+        return const_cast<value*>(this)->get##NAME(); \
+    }
 // Multiple numeric types (uint64_t, int64_t, double) are present in order to support
 // the widest possible range of JSON numbers, which do not have a maximum range.
 // Implementations that produce `value`s should use that order for type preference,
@@ -64,9 +75,18 @@ struct value : public value_base
     value(object_type object) : value_base(std::move(object)) {}
 
     explicit operator bool() const { return !is<null_value_t>(); }
+
+    DECLARE_VALUE_TYPE_ACCESOR(Int, int64_t)
+    DECLARE_VALUE_TYPE_ACCESOR(Uint, uint64_t)
+    DECLARE_VALUE_TYPE_ACCESOR(Bool, bool)
+    DECLARE_VALUE_TYPE_ACCESOR(Double, double)
+    DECLARE_VALUE_TYPE_ACCESOR(Array, array_type)
+    DECLARE_VALUE_TYPE_ACCESOR(Object, object_type)
 };
 
-using property_map = std::unordered_map<std::string, value>;
+#undef DECLARE_VALUE_TYPE_ACCESOR
+
+using property_map = value::object_type;
 
 // The same considerations and requirement for numeric types apply as for `value_base`.
 using identifier = mapbox::util::variant<null_value_t, uint64_t, int64_t, double, std::string>;
