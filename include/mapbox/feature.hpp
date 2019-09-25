@@ -82,6 +82,7 @@ struct value : public value_base
     DECLARE_VALUE_TYPE_ACCESOR(Double, double)
     DECLARE_VALUE_TYPE_ACCESOR(Array, array_type)
     DECLARE_VALUE_TYPE_ACCESOR(Object, object_type)
+    DECLARE_VALUE_TYPE_ACCESOR(String, std::string)
 };
 
 #undef DECLARE_VALUE_TYPE_ACCESOR

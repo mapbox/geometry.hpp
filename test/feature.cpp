@@ -48,6 +48,7 @@ TEST_CASE("test value")
     CHECK_FALSE(intV.getDouble());
     CHECK_FALSE(intV.getArray());
     CHECK_FALSE(intV.getObject());
+    CHECK_FALSE(intV.getString());
 }
 
 TEST_CASE("test feature")
