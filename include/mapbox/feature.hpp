@@ -101,79 +101,39 @@ struct feature
     geometry_type geometry;
     property_map properties;
     identifier id;
-    std::string source;
-    std::string sourceLayer;
-    property_map state;
 
     feature()
         : geometry(),
           properties(),
-          id(),
-          source(),
-          sourceLayer(),
-          state() {}
+          id() {}
     feature(geometry_type const& geom_)
         : geometry(geom_),
           properties(),
-          id(),
-          source(),
-          sourceLayer(),
-          state() {}
+          id() {}
     feature(geometry_type&& geom_)
         : geometry(std::move(geom_)),
           properties(),
-          id(),
-          source(),
-          sourceLayer(),
-          state() {}
+          id() {}
     feature(geometry_type const& geom_, property_map const& prop_)
-        : geometry(geom_),
-          properties(prop_),
-          id(),
-          source(),
-          sourceLayer(),
-          state() {}
+        : geometry(geom_), properties(prop_), id() {}
     feature(geometry_type&& geom_, property_map&& prop_)
         : geometry(std::move(geom_)),
           properties(std::move(prop_)),
-          id(),
-          source(),
-          sourceLayer(),
-          state() {}
+          id() {}
     feature(geometry_type const& geom_, property_map const& prop_, identifier const& id_)
         : geometry(geom_),
           properties(prop_),
-          id(id_),
-          source(),
-          sourceLayer(),
-          state() {}
+          id(id_) {}
     feature(geometry_type&& geom_, property_map&& prop_, identifier&& id_)
         : geometry(std::move(geom_)),
           properties(std::move(prop_)),
-          id(std::move(id_)),
-          source(),
-          sourceLayer(),
-          state() {}
-    feature(geometry_type const& geom_, property_map const& prop_, identifier const& id_, std::string const& source_, std::string const& sourceLayer_, property_map const& state_)
-        : geometry(geom_),
-          properties(prop_),
-          id(id_),
-          source(source_),
-          sourceLayer(sourceLayer_),
-          state(state_) {}
-    feature(geometry_type&& geom_, property_map&& prop_, identifier&& id_, std::string&& source_, std::string&& sourceLayer_, property_map&& state_)
-        : geometry(std::move(geom_)),
-          properties(std::move(prop_)),
-          id(std::move(id_)),
-          source(std::move(source_)),
-          sourceLayer(std::move(sourceLayer_)),
-          state(std::move(state_)) {}
+          id(std::move(id_)) {}
 };
 
 template <class T>
 constexpr bool operator==(feature<T> const& lhs, feature<T> const& rhs)
 {
-    return lhs.id == rhs.id && lhs.geometry == rhs.geometry && lhs.properties == rhs.properties && lhs.source == rhs.source && lhs.sourceLayer == rhs.sourceLayer && lhs.state == rhs.state;
+    return lhs.id == rhs.id && lhs.geometry == rhs.geometry && lhs.properties == rhs.properties;
 }
 
 template <class T>
