@@ -12,12 +12,38 @@ using mapbox::feature::value;
 namespace {
 
 template <typename T, typename U>
-void checkType(U&& arg) try
+void checkType(U arg) try
 {
-    value v{std::forward<U>(arg)};
+    value v{arg};
     CHECK(v);
     CHECK(v.template is<T>());
     CHECK(v.template get<T>() == arg);
+}
+catch (...)
+{
+    FAIL();
+}
+
+template <typename T, typename U>
+void checkPtrType(U arg) try
+{
+    value v{arg};
+    CHECK(v);
+    CHECK(v.template is<T>());
+    CHECK(*(v.template get<T>()) == *arg);
+}
+catch (...)
+{
+    FAIL();
+}
+
+template <typename T, typename U>
+void checkPtrType2(U arg) try
+{
+    value v{arg};
+    CHECK(v);
+    CHECK(v.template is<T>());
+    CHECK(*(v.template get<T>()) == arg);
 }
 catch (...)
 {
@@ -33,6 +59,15 @@ TEST_CASE("test value")
     checkType<uint64_t>(32u);
     checkType<bool>(false);
     checkType<std::string>("hello");
+
+    value::array_type vec;
+    vec.push_back(value(32));
+    checkPtrType<value::array_ptr_type>(std::make_shared<value::array_type>(vec));
+    checkPtrType2<value::array_ptr_type>(vec);
+    value::object_type map;
+    map.emplace("a", value(33));
+    checkPtrType<value::object_ptr_type>(std::make_shared<value::object_type>(map));
+    checkPtrType2<value::object_ptr_type>(map);
 
     value intV{32};
     CHECK_THROWS(intV.get<uint64_t>());

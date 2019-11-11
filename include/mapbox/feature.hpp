@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <memory>
 #include <unordered_map>
 
 namespace mapbox {
@@ -41,13 +42,15 @@ constexpr null_value_t null_value = null_value_t();
 // using uint64_t for positive integers, int64_t for negative integers, and double
 // for non-integers and integers outside the range of 64 bits.
 using value_base = mapbox::util::variant<null_value_t, bool, uint64_t, int64_t, double, std::string,
-                                         mapbox::util::recursive_wrapper<std::vector<value>>,
-                                         mapbox::util::recursive_wrapper<std::unordered_map<std::string, value>>>;
+                                         mapbox::util::recursive_wrapper<std::shared_ptr<std::vector<value>>>,
+                                         mapbox::util::recursive_wrapper<std::shared_ptr<std::unordered_map<std::string, value>>>>;
 
 struct value : public value_base
 {
     using array_type = std::vector<value>;
+    using array_ptr_type = std::shared_ptr<std::vector<value>>;
     using object_type = std::unordered_map<std::string, value>;
+    using object_ptr_type = std::shared_ptr<std::unordered_map<std::string, value>>;
 
     value() : value_base(null_value) {}
     value(null_value_t) : value_base(null_value) {}
@@ -71,8 +74,10 @@ struct value : public value_base
     value(T t) : value_base(double(t))
     {
     }
-    value(array_type array) : value_base(std::move(array)) {}
-    value(object_type object) : value_base(std::move(object)) {}
+    value(array_type array) : value_base(std::make_shared<array_type>(std::forward<array_type>(array))) {}
+    value(array_ptr_type array) : value_base(array) {}
+    value(object_type object) : value_base(std::make_shared<object_type>(std::forward<object_type>(object))) {}
+    value(object_ptr_type object) : value_base(object) {}
 
     explicit operator bool() const { return !is<null_value_t>(); }
 
@@ -80,9 +85,29 @@ struct value : public value_base
     DECLARE_VALUE_TYPE_ACCESOR(Uint, uint64_t)
     DECLARE_VALUE_TYPE_ACCESOR(Bool, bool)
     DECLARE_VALUE_TYPE_ACCESOR(Double, double)
-    DECLARE_VALUE_TYPE_ACCESOR(Array, array_type)
-    DECLARE_VALUE_TYPE_ACCESOR(Object, object_type)
     DECLARE_VALUE_TYPE_ACCESOR(String, std::string)
+    
+    array_ptr_type getArray() noexcept
+    {
+        return match(
+            [](array_ptr_type& val) -> array_ptr_type { return array_ptr_type(val); },
+            [](auto&) -> array_ptr_type { return array_ptr_type(); });
+    }
+    const array_ptr_type getArray() const noexcept
+    {
+        return const_cast<value*>(this)->getArray();
+    }
+
+    object_ptr_type getObject() noexcept
+    {
+        return match(
+            [](object_ptr_type& val) -> object_ptr_type { return object_ptr_type(val); },
+            [](auto&) -> object_ptr_type { return object_ptr_type(); });
+    }
+    const object_ptr_type getObject() const noexcept
+    {
+        return const_cast<value*>(this)->getObject();
+    }
 };
 
 #undef DECLARE_VALUE_TYPE_ACCESOR
