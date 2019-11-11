@@ -61,7 +61,7 @@ TEST_CASE("test value")
     checkType<std::string>("hello");
 
     value::array_type vec;
-    vec.push_back(value(32));
+    vec.emplace_back(value(32));
     checkPtrType<value::array_ptr_type>(std::make_shared<value::array_type>(vec));
     checkPtrType2<value::array_ptr_type>(vec);
     value::object_type map;
