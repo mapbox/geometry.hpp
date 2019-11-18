@@ -25,6 +25,8 @@ constexpr bool operator<(const null_value_t&, const null_value_t&) { return fals
 
 constexpr null_value_t null_value = null_value_t();
 
+
+
 #define DECLARE_VALUE_TYPE_ACCESOR(NAME, TYPE)        \
     TYPE* get##NAME() noexcept                        \
     {                                                 \
@@ -42,8 +44,8 @@ constexpr null_value_t null_value = null_value_t();
 // using uint64_t for positive integers, int64_t for negative integers, and double
 // for non-integers and integers outside the range of 64 bits.
 using value_base = mapbox::util::variant<null_value_t, bool, uint64_t, int64_t, double, std::string,
-                                         mapbox::util::recursive_wrapper<std::shared_ptr<std::vector<value>>>,
-                                         mapbox::util::recursive_wrapper<std::shared_ptr<std::unordered_map<std::string, value>>>>;
+                                         std::shared_ptr<std::vector<value>>,
+                                         std::shared_ptr<std::unordered_map<std::string, value>>>;
 
 struct value : public value_base
 {
@@ -78,6 +80,7 @@ struct value : public value_base
     value(array_ptr_type array) : value_base(array) {}
     value(object_type object) : value_base(std::make_shared<object_type>(std::forward<object_type>(object))) {}
     value(object_ptr_type object) : value_base(object) {}
+
 
     explicit operator bool() const { return !is<null_value_t>(); }
 
