@@ -51,8 +51,6 @@ constexpr bool operator<(const null_value_t&, const null_value_t&) { return fals
 
 constexpr null_value_t null_value = null_value_t();
 
-
-
 #define DECLARE_VALUE_TYPE_ACCESOR(NAME, TYPE)        \
     TYPE* get##NAME() noexcept                        \
     {                                                 \
@@ -125,7 +123,7 @@ struct value : public value_base
     DECLARE_VALUE_TYPE_ACCESOR(Bool, bool)
     DECLARE_VALUE_TYPE_ACCESOR(Double, double)
     DECLARE_VALUE_TYPE_ACCESOR(String, std::string)
-    
+
     array_ptr_type getArray() noexcept
     {
         return match(
