@@ -18,9 +18,7 @@ struct equal_comp_shared_ptr
 {
 
 #pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-warning-option"
 #pragma GCC diagnostic ignored "-Wfloat-equal"
-#pragma GCC diagnostic ignored "-Werror=float-equal"
     template <typename T>
     bool operator()(T const& lhs, T const& rhs) const
     {
