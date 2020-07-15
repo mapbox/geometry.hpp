@@ -23,7 +23,7 @@ std::ostream& operator<<(std::ostream& os, const point<T>& point)
 template <typename T, template <class, class...> class C, class... Args>
 std::ostream& operator<<(std::ostream& os, const C<T, Args...>& cont)
 {
-    os << "[";
+    os << '[';
     for (auto it = cont.cbegin();;)
     {
         os << *it;
@@ -31,9 +31,9 @@ std::ostream& operator<<(std::ostream& os, const C<T, Args...>& cont)
         {
             break;
         }
-        os << ",";
+        os << ',';
     }
-    return os << "]";
+    return os << ']';
 }
 
 template <typename T>
@@ -100,16 +100,16 @@ void to_stream(std::vector<mapbox::feature::value> const&, std::ostream& dest);
 
 void quote_string(std::string const& in, std::ostream& dest)
 {
-    dest << "\"";
+    dest << '\"';
     for (char c : in)
     {
         if (c == '"' || c == '\\')
         {
-            dest << "\\";
+            dest << '\\';
         }
         dest << c;
     }
-    dest << "\"";
+    dest << '\"';
 }
 
 struct value_to_stream_visitor
@@ -146,7 +146,7 @@ struct value_to_stream_visitor
 
     void operator()(std::vector<mapbox::feature::value> const& vec)
     {
-        out << "[";
+        out << '[';
         bool first = true;
         bool set_in = false;
         if (!in)
@@ -162,7 +162,7 @@ struct value_to_stream_visitor
             }
             else
             {
-                out << ",";
+                out << ',';
             }
             mapbox::util::apply_visitor(*this, item);
         }
@@ -170,7 +170,7 @@ struct value_to_stream_visitor
         {
             in = false;
         }
-        out << "]";
+        out << ']';
     }
 
     void operator()(std::shared_ptr<std::vector<mapbox::feature::value>> const& vec)
@@ -180,7 +180,7 @@ struct value_to_stream_visitor
 
     void operator()(std::unordered_map<std::string, mapbox::feature::value> const& map)
     {
-        out << "{";
+        out << '{';
         std::vector<std::string> keys;
         bool set_in = false;
         if (!in)
@@ -202,18 +202,18 @@ struct value_to_stream_visitor
             }
             else
             {
-                out << ",";
+                out << ',';
             }
             auto const val = map.find(k);
             quote_string(k, out);
-            out << ":";
+            out << ':';
             mapbox::util::apply_visitor(*this, val->second);
         }
         if (set_in)
         {
             in = false;
         }
-        out << "}";
+        out << '}';
     }
 
     void operator()(std::shared_ptr<std::unordered_map<std::string, mapbox::feature::value>> const& map)

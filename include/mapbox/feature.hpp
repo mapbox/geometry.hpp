@@ -73,8 +73,10 @@ struct value : public value_base
 {
     using array_type = std::vector<value>;
     using array_ptr_type = std::shared_ptr<std::vector<value>>;
+    using const_array_ptr_type = std::shared_ptr<const std::vector<value>>;
     using object_type = std::unordered_map<std::string, value>;
     using object_ptr_type = std::shared_ptr<std::unordered_map<std::string, value>>;
+    using const_object_ptr_type = std::shared_ptr<const std::unordered_map<std::string, value>>;
 
     value() : value_base(null_value) {}
     value(null_value_t) : value_base(null_value) {}
@@ -125,10 +127,10 @@ struct value : public value_base
     array_ptr_type getArray() noexcept
     {
         return match(
-            [](array_ptr_type& val) -> array_ptr_type { return array_ptr_type(val); },
-            [](auto&) -> array_ptr_type { return array_ptr_type(); });
+            [](array_ptr_type& val) -> array_ptr_type { return val; },
+            [](auto&) -> array_ptr_type { return nullptr; });
     }
-    const array_ptr_type getArray() const noexcept
+    const_array_ptr_type getArray() const noexcept
     {
         return const_cast<value*>(this)->getArray();
     }
@@ -136,10 +138,10 @@ struct value : public value_base
     object_ptr_type getObject() noexcept
     {
         return match(
-            [](object_ptr_type& val) -> object_ptr_type { return object_ptr_type(val); },
-            [](auto&) -> object_ptr_type { return object_ptr_type(); });
+            [](object_ptr_type& val) -> object_ptr_type { return val; },
+            [](auto&) -> object_ptr_type { return nullptr; });
     }
-    const object_ptr_type getObject() const noexcept
+    const_object_ptr_type getObject() const noexcept
     {
         return const_cast<value*>(this)->getObject();
     }
