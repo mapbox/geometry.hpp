@@ -9,7 +9,7 @@
 namespace mapbox {
 namespace geometry {
 
-std::ostream& operator<<(std::ostream& os, const empty&)
+inline std::ostream& operator<<(std::ostream& os, const empty&)
 {
     return os << "[]";
 }
@@ -89,9 +89,124 @@ std::ostream& operator<<(std::ostream& os, const geometry_collection<T>& geom)
 
 namespace feature {
 
-std::ostream& operator<<(std::ostream& os, const null_value_t&)
+inline std::ostream& operator<<(std::ostream& os, const null_value_t&)
 {
-    return os << "[]";
+    return os << "null";
+}
+
+void to_stream(mapbox::feature::property_map const&, std::ostream & dest);
+
+void to_stream(std::vector<mapbox::feature::value> const&, std::ostream & dest);
+
+void quote_string(std::string const& in, std::ostream & dest) {
+    dest << "\"";
+    for (char c : in) {
+        if (c == '"' || c == '\\') {
+            dest << "\\";
+        }
+        dest << c;
+    }
+    dest << "\"";
+}
+
+struct value_to_stream_visitor {
+    
+    std::ostream & out;
+    bool in = false;
+
+    template <typename T>
+    void operator()(T val) {
+        out << val;
+    }
+    
+    void operator()(std::string const& val) {
+        if (in) {
+            quote_string(val, out);
+        } else {
+            out << val;
+        }
+    }
+
+    void operator()(bool val) {
+        out << (val ? "true" : "false");
+    }
+
+    void operator()(std::vector<mapbox::feature::value> const& vec) {
+        out << "[";
+        bool first = true;
+        bool set_in = false;
+        if (!in) {
+            in = true;
+            set_in = true;
+        }
+        for (auto const& item : vec) {
+            if (first) {
+                first = false;
+            } else {
+                out << ",";
+            }
+            mapbox::util::apply_visitor(*this, item);
+        }
+        if (set_in) {
+            in = false;
+        }
+        out << "]";
+    }
+
+    void operator()(std::shared_ptr<std::vector<mapbox::feature::value>> const& vec) {
+        (*this)(*vec);
+    }
+
+    void operator()(std::unordered_map<std::string, mapbox::feature::value> const& map) {
+        out << "{";
+        std::vector<std::string> keys;
+        bool set_in = false;
+        if (!in) {
+            in = true;
+            set_in = true;
+        }
+        for (auto const& p : map) {
+            keys.push_back(p.first);
+        }
+        std::sort(keys.begin(), keys.end());
+        bool first = true;
+        for (auto const& k : keys) {
+            if (first) {
+                first = false;
+            } else {
+               out << ",";
+            }
+            auto const val = map.find(k);
+            quote_string(k, out);
+            out << ":";
+            mapbox::util::apply_visitor(*this, val->second);
+        }
+        if (set_in) {
+            in = false;
+        }
+        out << "}";
+    }
+
+    void operator()(std::shared_ptr<std::unordered_map<std::string, mapbox::feature::value>> const& map) {
+        (*this)(*map);
+    }
+};
+
+inline std::ostream& operator<<(std::ostream& os, std::unordered_map<std::string, mapbox::feature::value> const& map) {
+    value_to_stream_visitor vis{os};
+    vis(map);
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, std::vector<mapbox::feature::value> const& vec) {
+    value_to_stream_visitor vis{os};
+    vis(vec);
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& val) {
+    mapbox::util::apply_visitor(value_to_stream_visitor{os}, val);
+    return os;
 }
 
 } // namespace feature
