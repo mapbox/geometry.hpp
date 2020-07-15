@@ -112,7 +112,10 @@ void quote_string(std::string const& in, std::ostream & dest) {
 struct value_to_stream_visitor {
     
     std::ostream & out;
-    bool in = false;
+    bool in;
+
+    value_to_stream_visitor(std::ostream & out_)
+        : out(out_), in(false) {}
 
     template <typename T>
     void operator()(T val) {
@@ -193,19 +196,19 @@ struct value_to_stream_visitor {
 };
 
 inline std::ostream& operator<<(std::ostream& os, std::unordered_map<std::string, mapbox::feature::value> const& map) {
-    value_to_stream_visitor vis{os};
+    value_to_stream_visitor vis(os);
     vis(map);
     return os;
 }
 
 inline std::ostream& operator<<(std::ostream& os, std::vector<mapbox::feature::value> const& vec) {
-    value_to_stream_visitor vis{os};
+    value_to_stream_visitor vis(os);
     vis(vec);
     return os;
 }
 
 inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& val) {
-    mapbox::util::apply_visitor(value_to_stream_visitor{os}, val);
+    mapbox::util::apply_visitor(value_to_stream_visitor(os), val);
     return os;
 }
 
