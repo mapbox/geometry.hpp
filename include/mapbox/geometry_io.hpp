@@ -98,7 +98,7 @@ void to_stream(mapbox::feature::property_map const&, std::ostream& dest);
 
 void to_stream(std::vector<mapbox::feature::value> const&, std::ostream& dest);
 
-void quote_string(std::string const& in, std::ostream& dest)
+inline void quote_string(std::string const& in, std::ostream& dest)
 {
     dest << '\"';
     for (char c : in)
