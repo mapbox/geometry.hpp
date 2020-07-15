@@ -17,7 +17,7 @@ inline std::ostream& operator<<(std::ostream& os, const empty&)
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const point<T>& point)
 {
-    return os << "[" << point.x << "," << point.y << "]";
+    return os << '[' << point.x << ',' << point.y << ']';
 }
 
 template <typename T, template <class, class...> class C, class... Args>
