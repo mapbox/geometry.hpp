@@ -59,19 +59,19 @@ TEST_CASE("operator<<")
 TEST_CASE("operator<< feature")
 {
     mapbox::feature::null_value_t null;
-    mapbox::feature::value val_null {};
-    mapbox::feature::value val_int {1};
-    mapbox::feature::value val_uint {1U};
-    mapbox::feature::value val_double {1.2};
-    mapbox::feature::value val_str {"foo"};
-    mapbox::feature::value val_str_quote {"\"foo\""};
-    mapbox::feature::value val_str_backslash {"\\"};
-    mapbox::feature::value val_bool_true {true};
-    mapbox::feature::value val_bool_false {false};
+    mapbox::feature::value val_null{};
+    mapbox::feature::value val_int{1};
+    mapbox::feature::value val_uint{1U};
+    mapbox::feature::value val_double{1.2};
+    mapbox::feature::value val_str{"foo"};
+    mapbox::feature::value val_str_quote{"\"foo\""};
+    mapbox::feature::value val_str_backslash{"\\"};
+    mapbox::feature::value val_bool_true{true};
+    mapbox::feature::value val_bool_false{false};
     std::vector<mapbox::feature::value> vec = {1, "fee", true, "\"faa\"", "\\"};
-    mapbox::feature::value val_vec {vec};
+    mapbox::feature::value val_vec{vec};
     std::unordered_map<std::string, mapbox::feature::value> map = {{"fee", "foo"}, {"blah\"", 12}};
-    mapbox::feature::value val_map {map};
+    mapbox::feature::value val_map{map};
 
     std::stringstream stream;
     stream << null << std::endl;
@@ -93,7 +93,7 @@ TEST_CASE("operator<< feature")
 
     std::getline(stream, line);
     CHECK(line == std::string("null"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("null"));
 
@@ -117,19 +117,19 @@ TEST_CASE("operator<< feature")
 
     std::getline(stream, line);
     CHECK(line == std::string("true"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("false"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("[1,\"fee\",true,\"\\\"faa\\\"\",\"\\\\\"]"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("[1,\"fee\",true,\"\\\"faa\\\"\",\"\\\\\"]"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("{\"blah\\\"\":12,\"fee\":\"foo\"}"));
-    
+
     std::getline(stream, line);
     CHECK(line == std::string("{\"blah\\\"\":12,\"fee\":\"foo\"}"));
 }

@@ -94,14 +94,17 @@ inline std::ostream& operator<<(std::ostream& os, const null_value_t&)
     return os << "null";
 }
 
-void to_stream(mapbox::feature::property_map const&, std::ostream & dest);
+void to_stream(mapbox::feature::property_map const&, std::ostream& dest);
 
-void to_stream(std::vector<mapbox::feature::value> const&, std::ostream & dest);
+void to_stream(std::vector<mapbox::feature::value> const&, std::ostream& dest);
 
-void quote_string(std::string const& in, std::ostream & dest) {
+void quote_string(std::string const& in, std::ostream& dest)
+{
     dest << "\"";
-    for (char c : in) {
-        if (c == '"' || c == '\\') {
+    for (char c : in)
+    {
+        if (c == '"' || c == '\\')
+        {
             dest << "\\";
         }
         dest << c;
@@ -109,105 +112,132 @@ void quote_string(std::string const& in, std::ostream & dest) {
     dest << "\"";
 }
 
-struct value_to_stream_visitor {
-    
-    std::ostream & out;
+struct value_to_stream_visitor
+{
+
+    std::ostream& out;
     bool in;
 
-    value_to_stream_visitor(std::ostream & out_)
+    value_to_stream_visitor(std::ostream& out_)
         : out(out_), in(false) {}
 
     template <typename T>
-    void operator()(T val) {
+    void operator()(T val)
+    {
         out << val;
     }
-    
-    void operator()(std::string const& val) {
-        if (in) {
+
+    void operator()(std::string const& val)
+    {
+        if (in)
+        {
             quote_string(val, out);
-        } else {
+        }
+        else
+        {
             out << val;
         }
     }
 
-    void operator()(bool val) {
+    void operator()(bool val)
+    {
         out << (val ? "true" : "false");
     }
 
-    void operator()(std::vector<mapbox::feature::value> const& vec) {
+    void operator()(std::vector<mapbox::feature::value> const& vec)
+    {
         out << "[";
         bool first = true;
         bool set_in = false;
-        if (!in) {
+        if (!in)
+        {
             in = true;
             set_in = true;
         }
-        for (auto const& item : vec) {
-            if (first) {
+        for (auto const& item : vec)
+        {
+            if (first)
+            {
                 first = false;
-            } else {
+            }
+            else
+            {
                 out << ",";
             }
             mapbox::util::apply_visitor(*this, item);
         }
-        if (set_in) {
+        if (set_in)
+        {
             in = false;
         }
         out << "]";
     }
 
-    void operator()(std::shared_ptr<std::vector<mapbox::feature::value>> const& vec) {
+    void operator()(std::shared_ptr<std::vector<mapbox::feature::value>> const& vec)
+    {
         (*this)(*vec);
     }
 
-    void operator()(std::unordered_map<std::string, mapbox::feature::value> const& map) {
+    void operator()(std::unordered_map<std::string, mapbox::feature::value> const& map)
+    {
         out << "{";
         std::vector<std::string> keys;
         bool set_in = false;
-        if (!in) {
+        if (!in)
+        {
             in = true;
             set_in = true;
         }
-        for (auto const& p : map) {
+        for (auto const& p : map)
+        {
             keys.push_back(p.first);
         }
         std::sort(keys.begin(), keys.end());
         bool first = true;
-        for (auto const& k : keys) {
-            if (first) {
+        for (auto const& k : keys)
+        {
+            if (first)
+            {
                 first = false;
-            } else {
-               out << ",";
+            }
+            else
+            {
+                out << ",";
             }
             auto const val = map.find(k);
             quote_string(k, out);
             out << ":";
             mapbox::util::apply_visitor(*this, val->second);
         }
-        if (set_in) {
+        if (set_in)
+        {
             in = false;
         }
         out << "}";
     }
 
-    void operator()(std::shared_ptr<std::unordered_map<std::string, mapbox::feature::value>> const& map) {
+    void operator()(std::shared_ptr<std::unordered_map<std::string, mapbox::feature::value>> const& map)
+    {
         (*this)(*map);
     }
 };
 
-inline std::ostream& operator<<(std::ostream& os, std::unordered_map<std::string, mapbox::feature::value> const& map) {
+inline std::ostream& operator<<(std::ostream& os, std::unordered_map<std::string, mapbox::feature::value> const& map)
+{
     value_to_stream_visitor vis(os);
     vis(map);
     return os;
 }
 
-inline std::ostream& operator<<(std::ostream& os, std::vector<mapbox::feature::value> const& vec) {
+inline std::ostream& operator<<(std::ostream& os, std::vector<mapbox::feature::value> const& vec)
+{
     value_to_stream_visitor vis(os);
     vis(vec);
     return os;
 }
 
-inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& val) {
+inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& val)
+{
     mapbox::util::apply_visitor(value_to_stream_visitor(os), val);
     return os;
 }
