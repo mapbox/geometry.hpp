@@ -56,7 +56,7 @@ TEST_CASE("operator<<")
     CHECK(line == std::string("[[[[[10,20],[30,40]]]]]"));
 }
 
-TEST_CASE("operator<< feature")
+TEST_CASE("operator<< feature value")
 {
     mapbox::feature::null_value_t null;
     mapbox::feature::value val_null{};
@@ -107,13 +107,13 @@ TEST_CASE("operator<< feature")
     CHECK(line == std::string("1.2"));
 
     std::getline(stream, line);
-    CHECK(line == std::string("foo"));
-
-    std::getline(stream, line);
     CHECK(line == std::string("\"foo\""));
 
     std::getline(stream, line);
-    CHECK(line == std::string("\\"));
+    CHECK(line == std::string("\"\\\"foo\\\"\""));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("\"\\\\\""));
 
     std::getline(stream, line);
     CHECK(line == std::string("true"));
@@ -132,4 +132,47 @@ TEST_CASE("operator<< feature")
 
     std::getline(stream, line);
     CHECK(line == std::string("{\"blah\\\"\":12,\"fee\":\"foo\"}"));
+}
+
+TEST_CASE("operator<< feature identifier")
+{
+    mapbox::feature::identifier id_null{};
+    mapbox::feature::identifier id_int{static_cast<std::int64_t>(1)};
+    mapbox::feature::identifier id_uint{static_cast<std::uint64_t>(1U)};
+    mapbox::feature::identifier id_double{static_cast<double>(1.2)};
+    mapbox::feature::identifier id_str{"foo"};
+    mapbox::feature::identifier id_str_quote{"\"foo\""};
+    mapbox::feature::identifier id_str_backslash{"\\"};
+
+    std::stringstream stream;
+    stream << id_null << std::endl;
+    stream << id_int << std::endl;
+    stream << id_uint << std::endl;
+    stream << id_double << std::endl;
+    stream << id_str << std::endl;
+    stream << id_str_quote << std::endl;
+    stream << id_str_backslash << std::endl;
+
+    std::string line;
+
+    std::getline(stream, line);
+    CHECK(line == std::string("null"));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("1"));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("1"));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("1.2"));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("\"foo\""));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("\"\\\"foo\\\"\""));
+
+    std::getline(stream, line);
+    CHECK(line == std::string("\"\\\\\""));
 }

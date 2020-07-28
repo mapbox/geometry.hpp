@@ -3,6 +3,7 @@
 #include <mapbox/geometry/empty.hpp>
 #include <mapbox/feature.hpp>
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -116,10 +117,6 @@ struct value_to_stream_visitor
 {
 
     std::ostream& out;
-    bool in;
-
-    value_to_stream_visitor(std::ostream& out_)
-        : out(out_), in(false) {}
 
     template <typename T>
     void operator()(T val)
@@ -129,14 +126,7 @@ struct value_to_stream_visitor
 
     void operator()(std::string const& val)
     {
-        if (in)
-        {
-            quote_string(val, out);
-        }
-        else
-        {
-            out << val;
-        }
+        quote_string(val, out);
     }
 
     void operator()(bool val)
@@ -148,12 +138,6 @@ struct value_to_stream_visitor
     {
         out << '[';
         bool first = true;
-        bool set_in = false;
-        if (!in)
-        {
-            in = true;
-            set_in = true;
-        }
         for (auto const& item : vec)
         {
             if (first)
@@ -165,10 +149,6 @@ struct value_to_stream_visitor
                 out << ',';
             }
             mapbox::util::apply_visitor(*this, item);
-        }
-        if (set_in)
-        {
-            in = false;
         }
         out << ']';
     }
@@ -182,12 +162,6 @@ struct value_to_stream_visitor
     {
         out << '{';
         std::vector<std::string> keys;
-        bool set_in = false;
-        if (!in)
-        {
-            in = true;
-            set_in = true;
-        }
         for (auto const& p : map)
         {
             keys.push_back(p.first);
@@ -209,10 +183,6 @@ struct value_to_stream_visitor
             out << ':';
             mapbox::util::apply_visitor(*this, val->second);
         }
-        if (set_in)
-        {
-            in = false;
-        }
         out << '}';
     }
 
@@ -224,21 +194,44 @@ struct value_to_stream_visitor
 
 inline std::ostream& operator<<(std::ostream& os, std::unordered_map<std::string, mapbox::feature::value> const& map)
 {
-    value_to_stream_visitor vis(os);
+    value_to_stream_visitor vis{os};
     vis(map);
     return os;
 }
 
 inline std::ostream& operator<<(std::ostream& os, std::vector<mapbox::feature::value> const& vec)
 {
-    value_to_stream_visitor vis(os);
+    value_to_stream_visitor vis{os};
     vis(vec);
     return os;
 }
 
 inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& val)
 {
-    mapbox::util::apply_visitor(value_to_stream_visitor(os), val);
+    mapbox::util::apply_visitor(value_to_stream_visitor{os}, val);
+    return os;
+}
+
+struct identifier_to_stream_visitor {
+
+    std::ostream& out;
+    
+    template <typename T>
+    void operator()(T val)
+    {
+        out << val;
+    }
+
+    void operator()(std::string const& val)
+    {
+        quote_string(val, out);
+    }
+
+};
+
+inline std::ostream& operator<<(std::ostream& os, mapbox::feature::identifier const& val)
+{
+    mapbox::util::apply_visitor(identifier_to_stream_visitor{os}, val);
     return os;
 }
 
