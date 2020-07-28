@@ -212,10 +212,11 @@ inline std::ostream& operator<<(std::ostream& os, mapbox::feature::value const& 
     return os;
 }
 
-struct identifier_to_stream_visitor {
+struct identifier_to_stream_visitor
+{
 
     std::ostream& out;
-    
+
     template <typename T>
     void operator()(T val)
     {
@@ -226,7 +227,6 @@ struct identifier_to_stream_visitor {
     {
         quote_string(val, out);
     }
-
 };
 
 inline std::ostream& operator<<(std::ostream& os, mapbox::feature::identifier const& val)
