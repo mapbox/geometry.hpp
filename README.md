@@ -1,6 +1,7 @@
 # geometry.hpp
 
-[![badge](https://mapbox.s3.amazonaws.com/cpp-assets/hpp-skel-badge_blue.svg)](https://github.com/mapbox/hpp-skel)
+[![badge](https://raw.githubusercontent.com/mapbox/cpp/master/assets/hpp-skel-badge_blue.svg)](https://github.com/mapbox/hpp-skel)
+[![Build Status](https://travis-ci.com/mapbox/geometry.hpp.svg?branch=master)](https://travis-ci.com/mapbox/geometry.hpp)
 
 Provides header-only, generic C++ interfaces for geometry types, geometry collections, and features.
 
