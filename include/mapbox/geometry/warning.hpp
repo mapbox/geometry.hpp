@@ -18,7 +18,10 @@
 #define MAPBOX_GEOMETRY_DISABLE_WARNING(warningName) MAPBOX_GEOMETRY_DO_PRAGMA(GCC diagnostic ignored #warningName)
 // add warnings to deactivate here
 // example: #define DISABLE_WARNING_UNREFERENCED_FORMAL_PARAMETER    MAPBOX_GEOMETRY_DISABLE_WARNING(-Wunused-parameter)
+// disable clang-format for the next line since the waring definition would be formatted. 
+// clang-format off
 #define MAPBOX_GEOMETRY_DISABLE_WARNING_FLOAT_EQUAL MAPBOX_GEOMETRY_DISABLE_WARNING(-Wfloat-equal)
+// clang-format on
 #else
 #define MAPBOX_GEOMETRY_DISABLE_WARNING_PUSH
 #define MAPBOX_GEOMETRY_DISABLE_WARNING_POP
