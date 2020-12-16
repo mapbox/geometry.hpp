@@ -18,14 +18,14 @@ namespace feature {
 struct equal_comp_shared_ptr
 {
 
-MAPBOX_GEOMETRY_DISABLE_WARNING_PUSH
-MAPBOX_GEOMETRY_DISABLE_WARNING_FLOAT_EQUAL
+    MAPBOX_GEOMETRY_DISABLE_WARNING_PUSH
+    MAPBOX_GEOMETRY_DISABLE_WARNING_FLOAT_EQUAL
     template <typename T>
     bool operator()(T const& lhs, T const& rhs) const
     {
         return lhs == rhs;
     }
-MAPBOX_GEOMETRY_DISABLE_WARNING_POP
+    MAPBOX_GEOMETRY_DISABLE_WARNING_POP
 
     template <typename T>
     bool operator()(std::shared_ptr<T> const& lhs, std::shared_ptr<T> const& rhs) const
