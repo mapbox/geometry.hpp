@@ -1,5 +1,7 @@
 #pragma once
 
+#include "warning.hpp"
+
 namespace mapbox {
 namespace geometry {
 
@@ -21,8 +23,8 @@ struct point
     T y;
 };
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wfloat-equal"
+MAPBOX_GEOMETRY_DISABLE_WARNING_PUSH
+MAPBOX_GEOMETRY_DISABLE_WARNING_FLOAT_EQUAL
 
 template <typename T>
 constexpr bool operator==(point<T> const& lhs, point<T> const& rhs)
@@ -30,7 +32,7 @@ constexpr bool operator==(point<T> const& lhs, point<T> const& rhs)
     return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
-#pragma GCC diagnostic pop
+MAPBOX_GEOMETRY_DISABLE_WARNING_POP
 
 template <typename T>
 constexpr bool operator!=(point<T> const& lhs, point<T> const& rhs)
