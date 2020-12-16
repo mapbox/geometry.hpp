@@ -1,5 +1,7 @@
 #pragma once
 
+#include "warning.hpp"
+
 namespace mapbox {
 namespace geometry {
 

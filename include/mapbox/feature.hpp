@@ -10,6 +10,7 @@
 #include <memory>
 #include <unordered_map>
 
+#include "mapbox/geometry/warning.hpp"
 namespace mapbox {
 namespace feature {
 
