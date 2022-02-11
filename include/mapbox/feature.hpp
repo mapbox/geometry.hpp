@@ -222,3 +222,14 @@ struct feature_collection : Cont<feature<T>>
 
 } // namespace feature
 } // namespace mapbox
+
+namespace std {
+template <>
+struct hash<mapbox::feature::null_value_t>
+{
+    size_t operator()(const mapbox::feature::null_value_t&) const
+    {
+        return 779711298111120;
+    }
+};
+} // namespace std
