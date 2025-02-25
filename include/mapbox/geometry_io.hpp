@@ -21,8 +21,8 @@ std::ostream& operator<<(std::ostream& os, const point<T>& point)
     return os << '[' << point.x << ',' << point.y << ']';
 }
 
-template <typename T, template <class, class...> class C, class... Args>
-std::ostream& operator<<(std::ostream& os, const C<T, Args...>& cont)
+template <typename T, template <class, class, class...> class C, class Args1, class... Args2>
+std::ostream& operator<<(std::ostream& os, const C<T, Args1, Args2...>& cont)
 {
     os << '[';
     for (auto it = cont.cbegin();;)
