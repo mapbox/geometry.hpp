@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/mason.cmake)
 
 option(WERROR "Add -Werror flag to build (turns warnings into errors)" ON)
+option(BENCHMARKS "Build benchmarks" ON)
 
 # configure optimization
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -35,8 +36,10 @@ endif()
 mason_use(catch VERSION 1.9.6 HEADER_ONLY)
 include_directories(SYSTEM ${MASON_PACKAGE_catch_INCLUDE_DIRS})
 
-mason_use(benchmark VERSION 1.2.0)
-include_directories(SYSTEM ${MASON_PACKAGE_benchmark_INCLUDE_DIRS})
+if (BENCHMARKS)
+  mason_use(benchmark VERSION 1.2.0)
+  include_directories(SYSTEM ${MASON_PACKAGE_benchmark_INCLUDE_DIRS})
+endif()
 
 mason_use(variant VERSION 1.1.5 HEADER_ONLY)
 include_directories(SYSTEM ${MASON_PACKAGE_variant_INCLUDE_DIRS})
@@ -46,10 +49,12 @@ include_directories("${PROJECT_SOURCE_DIR}/include")
 file(GLOB TEST_SOURCES test/*.cpp)
 add_executable(unit-tests ${TEST_SOURCES})
 
-# libbenchmark.a supports threads and therefore needs pthread support
-find_package(Threads REQUIRED)
-file(GLOB BENCH_SOURCES bench/*.cpp)
-add_executable(bench-tests ${BENCH_SOURCES})
+if (BENCHMARKS)
+  # libbenchmark.a supports threads and therefore needs pthread support
+  find_package(Threads REQUIRED)
+  file(GLOB BENCH_SOURCES bench/*.cpp)
+  add_executable(bench-tests ${BENCH_SOURCES})
 
-# link benchmark static library to the bench-tests binary so the bench tests know where to find the benchmark impl code
-target_link_libraries(bench-tests ${MASON_PACKAGE_benchmark_STATIC_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+  # link benchmark static library to the bench-tests binary so the bench tests know where to find the benchmark impl code
+  target_link_libraries(bench-tests ${MASON_PACKAGE_benchmark_STATIC_LIBS} ${CMAKE_THREAD_LIBS_INIT})
+endif()
