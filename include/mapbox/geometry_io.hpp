@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include <type_traits>
 
 namespace mapbox {
 namespace geometry {
@@ -21,7 +22,8 @@ std::ostream& operator<<(std::ostream& os, const point<T>& point)
     return os << '[' << point.x << ',' << point.y << ']';
 }
 
-template <typename T, template <class, class...> class C, class... Args>
+template <typename T, template <class, class...> class C, class... Args,
+          typename std::enable_if<!std::is_same<C<T, Args...>, point<T>>::value, int>::type = 0>
 std::ostream& operator<<(std::ostream& os, const C<T, Args...>& cont)
 {
     os << '[';
